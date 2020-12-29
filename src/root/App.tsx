@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
 import Home from "modules/home";
+import NavigationPanel from "components/navigationPanel/navigationPanel";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">This is the header</header>
+      <NavigationPanel />
       <Home />
     </div>
   );

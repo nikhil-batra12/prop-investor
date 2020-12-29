@@ -1,17 +1,13 @@
 import React from "react";
-
+import * as constants from "./constants";
+import ImageCarousel from "components/imageCarousel/imageCarousel";
 class HomeModule extends React.PureComponent<
   any,
   { details: string; onGetDetails: () => void }
 > {
   render() {
     const { details = "123", onGetDetails } = this.props;
-    return (
-      <>
-        <h1>Hello this is a {details}</h1>
-        <button onClick={onGetDetails}>Click me</button>
-      </>
-    );
+    return <ImageCarousel config={constants.CAROUSEL_CONFIG} />;
   }
 }
 
