@@ -1,5 +1,6 @@
 import React from "react";
 import * as constants from "./constants";
+import HouseTile from "components/houseTile/houseTile";
 import ImageCarousel from "components/imageCarousel/imageCarousel";
 class HomeModule extends React.PureComponent<
   any,
@@ -7,7 +8,12 @@ class HomeModule extends React.PureComponent<
 > {
   render() {
     const { details = "123", onGetDetails } = this.props;
-    return <ImageCarousel config={constants.CAROUSEL_CONFIG} />;
+    return (
+      <>
+        <HouseTile />
+        <ImageCarousel config={constants.CAROUSEL_CONFIG} />
+      </>
+    );
   }
 }
 
