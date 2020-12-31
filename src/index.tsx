@@ -6,7 +6,9 @@ import { store } from "./root/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
+import setupAxios from "api/setupAxios";
 
+setupAxios();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

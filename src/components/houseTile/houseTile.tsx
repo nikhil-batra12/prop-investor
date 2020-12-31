@@ -9,7 +9,7 @@ class HouseTile extends React.PureComponent {
       <Container fluid>
         <h2>Properties for Sale</h2>
         <Row>
-          <Col xs={12} md={8} lg={3}>
+          <Col xs={12} md={6} lg={3}>
             <Jumbotron>
               <h1>Hello, world!</h1>
               <p>
@@ -21,7 +21,7 @@ class HouseTile extends React.PureComponent {
               </p>
             </Jumbotron>
           </Col>
-          <Col xs={12} md={8} lg={3}>
+          <Col xs={12} md={6} lg={3}>
             <Jumbotron>
               <h1>Hello, world!</h1>
               <p>
@@ -33,7 +33,7 @@ class HouseTile extends React.PureComponent {
               </p>
             </Jumbotron>
           </Col>
-          <Col xs={12} md={8} lg={3}>
+          <Col xs={12} md={6} lg={3}>
             <Jumbotron>
               <h1>Hello, world!</h1>
               <p>
@@ -45,7 +45,7 @@ class HouseTile extends React.PureComponent {
               </p>
             </Jumbotron>
           </Col>
-          <Col xs={12} md={8} lg={3}>
+          <Col xs={12} md={6} lg={3}>
             <Jumbotron>
               <h1>Hello, world!</h1>
               <p>

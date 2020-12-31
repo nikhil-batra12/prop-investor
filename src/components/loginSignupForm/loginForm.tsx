@@ -31,7 +31,7 @@ class LoginForm extends React.PureComponent<
           </Form.Group>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <Button variant="primary" type="submit" block size="lg">
+          <Button variant="primary" type="submit" size="lg" block>
             Log In
           </Button>
           <Button variant="link" block>

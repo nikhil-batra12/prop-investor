@@ -24,7 +24,7 @@ const ImageCarousel = (props) => {
   const { config } = props;
 
   const items = _.map(config, (element) => getCarouselItem(element));
-  return <Carousel>{items}</Carousel>;
+  return <Carousel className="w-75 mr-auto ml-auto">{items}</Carousel>;
 };
 
 export default ImageCarousel;
