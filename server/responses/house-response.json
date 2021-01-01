@@ -1,0 +1,34 @@
+{
+  "houses": [
+    {
+      "src": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHw%3D&w=1000&q=80",
+      "alt": "First House",
+      "label": "First House",
+      "content": "Arizona, USA"
+    },
+    {
+      "src": "https://i.pinimg.com/originals/66/d9/f5/66d9f5afdc5337d3f9eac362b970c426.jpg",
+      "alt": "Second House",
+      "label": "Second House",
+      "content": "Arizona, USA"
+    },
+    {
+      "src": "https://i.pinimg.com/originals/38/d7/5b/38d75b985d9d08ce0959201f8198f405.jpg",
+      "alt": "Third House",
+      "label": "Third House",
+      "content": "Arizona, USA"
+    },
+    {
+      "src": "https://www.thehousedesigners.com/house-plans/images/AdvSearch2-7263.jpg",
+      "alt": "Fourth House",
+      "label": "Fourth House",
+      "content": "Arizona, USA"
+    },
+    {
+      "src": "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "alt": "Fifth House",
+      "label": "Fifth House",
+      "content": "Arizona, USA"
+    }
+  ]
+}

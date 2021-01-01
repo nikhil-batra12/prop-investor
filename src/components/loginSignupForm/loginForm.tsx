@@ -4,16 +4,17 @@ import { GoogleLogin } from "react-google-login";
 
 class LoginForm extends React.PureComponent<
   any,
-  { showForm: boolean; handleClose: () => void; onChangeMode: () => void }
+  { showForm: boolean; onClose: () => void; onChangeMode: () => void }
 > {
   onSignIn = (googleUser) => {
-    console.log(googleUser);
+    localStorage.setItem("token", googleUser.tokenId);
+    this.props.onClose();
   };
 
   onFailed = (res) => console.log(res);
 
   render() {
-    const { showForm, handleClose, onChangeMode } = this.props;
+    const { onChangeMode } = this.props;
     return (
       <Form>
         <Modal.Header closeButton>

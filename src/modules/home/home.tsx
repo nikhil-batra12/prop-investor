@@ -5,21 +5,27 @@ import ImageCarousel from "components/imageCarousel/imageCarousel";
 import { getRequest } from "api/restService";
 import axios from "axios";
 class HomeModule extends React.PureComponent<
-  any,
-  { details: string; onGetDetails: () => void }
+  { details: string; onGetDetails: () => void },
+  { houses: any }
 > {
+  state = {
+    houses: [],
+  };
+
   componentDidMount() {
-    getRequest({ url: "/todos/1" }).then((response) =>
-      console.log("response recieved")
+    getRequest({ url: "/house" }).then((response) =>
+      this.setState({ houses: response.data.houses })
     );
   }
 
   render() {
     const { details = "123", onGetDetails } = this.props;
+    const { houses } = this.state;
+    console.log(houses);
     return (
       <>
         <HouseTile />
-        <ImageCarousel config={constants.CAROUSEL_CONFIG} />
+        <ImageCarousel config={houses} />
       </>
     );
   }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
+  axios.defaults.baseURL = "http://localhost:3001/api";
   axios.defaults.headers.common["Authorization"] = "AUTH TOKEN";
   axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -15,8 +15,6 @@ const setupAxios = () => {
       return Promise.reject(error);
     }
   );
-
-  console.log("setup`");
 
   axios.interceptors.response.use(
     (response) => {

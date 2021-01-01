@@ -1,11 +1,15 @@
 import axios from "axios";
 import _ from "lodash";
 
+const getToken = () => localStorage.getItem("token") || null;
+
 const defaultGetConfig = {
   url: null,
   interpolateParams: {},
   queryParams: {},
-  headers: {},
+  headers: {
+    token: getToken(),
+  },
 };
 
 const defaultPostConfig = {
@@ -13,7 +17,9 @@ const defaultPostConfig = {
   interpolateParams: {},
   body: {},
   queryParams: {},
-  headers: {},
+  headers: {
+    token: getToken(),
+  },
 };
 
 const interpolateUrl = (url, interpolateParams) => {
@@ -33,6 +39,7 @@ export const getRequest = (config) => {
   if (!url) {
     throw Error("URL cannot be null");
   }
+  console.log(headers);
   url = interpolateUrl(url, interpolateParams);
   return new Promise((resolve) =>
     axios
