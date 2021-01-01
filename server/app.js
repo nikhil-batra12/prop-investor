@@ -3,6 +3,7 @@ var app = express();
 var path = require("path");
 const cors = require("cors");
 var bodyParser = require("body-parser");
+var mysql = require("mysql");
 
 /* Internal controller dependencies*/
 var houseController = require("./controllers/houseController");
@@ -10,7 +11,18 @@ var houseController = require("./controllers/houseController");
 /* Set port for local/heroku environment*/
 var port = process.env.PORT || 3001;
 
-activateApp();
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "mydb",
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log("Connected!");
+  activateApp();
+});
 
 // Activate the app and routes
 function activateApp() {
@@ -33,3 +45,5 @@ function activateApp() {
     console.log("App server started", port);
   });
 }
+
+exports.con = con;
