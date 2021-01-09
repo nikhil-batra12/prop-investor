@@ -28,6 +28,7 @@ class loginSignupForm extends React.PureComponent<
         {mode === "SIGNUP" && (
           <SignUpForm
             onChangeMode={_.partial(this.handleChangeMode, "LOGIN")}
+            onClose={handleClose}
           />
         )}
       </Modal>

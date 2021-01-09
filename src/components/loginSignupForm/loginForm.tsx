@@ -1,11 +1,19 @@
 import React from "react";
+import _ from "lodash";
 import { Button, Col, Form, Modal } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
-
+import FormGenerator from "components/formGenerator/formGenerator";
+import * as constants from "./constants";
 class LoginForm extends React.PureComponent<
-  any,
-  { showForm: boolean; onClose: () => void; onChangeMode: () => void }
+  { onClose: () => void; onChangeMode: () => void },
+  { isFormSubmitted: boolean; isFormValid: boolean; generatedPostObj: any }
 > {
+  state = {
+    isFormSubmitted: false,
+    isFormValid: false,
+    generatedPostObj: {},
+  };
+
   onSignIn = (googleUser) => {
     localStorage.setItem("token", googleUser.tokenId);
     this.props.onClose();
@@ -13,23 +21,44 @@ class LoginForm extends React.PureComponent<
 
   onFailed = (res) => console.log(res);
 
+  handleSubmit = (event) => {
+    const { isFormValid } = this.state;
+    if (isFormValid) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    console.log(this.state.generatedPostObj);
+    this.setState({ isFormSubmitted: true });
+  };
+
+  generateFormPostObj = (formObj) => {
+    const postObj = {};
+    _.map(formObj.fields, (field) => (postObj[field.controlId] = field.value));
+    return postObj;
+  };
+
+  updateForm = (formObj) => {
+    this.setState({ generatedPostObj: this.generateFormPostObj(formObj) });
+    this.setState({ isFormValid: formObj.formValid });
+  };
+
   render() {
     const { onChangeMode } = this.props;
+    const { isFormSubmitted } = this.state;
     return (
-      <Form>
+      <Form noValidate onSubmit={this.handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Log In</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" size="lg" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" size="lg" />
-          </Form.Group>
+          <FormGenerator
+            form={constants.loginFormConfig}
+            isFormSubmitted={isFormSubmitted}
+            onUpdateForm={this.updateForm}
+          />
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button variant="primary" type="submit" size="lg" block>

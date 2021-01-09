@@ -1,35 +1,48 @@
 import React from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import FormGenerator from "components/formGenerator/formGenerator";
+import * as constants from "./constants";
 
 class SignUpForm extends React.PureComponent<
-  any,
-  { showForm: boolean; handleClose: () => void; onChangeMode: () => void }
+  { onClose: () => void; onChangeMode: () => void },
+  { isFormSubmitted: boolean; isFormValid: boolean }
 > {
+  state = {
+    isFormSubmitted: false,
+    isFormValid: false,
+  };
+
+  handleSubmit = (event) => {
+    const { isFormValid } = this.state;
+    if (isFormValid) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.setState({ isFormSubmitted: true });
+  };
+
+  updateForm = (valid) => {
+    this.setState({ isFormValid: valid });
+  };
+
   render() {
-    const { showForm, handleClose, onChangeMode } = this.props;
+    const { onChangeMode } = this.props;
+    const { isFormSubmitted } = this.state;
     return (
-      <Form>
+      <Form noValidate onSubmit={this.handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group controlId="formBasicName">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter full name" size="lg" />
-          </Form.Group>
-          <Form.Group controlId="formBasicAddress">
-            <Form.Label>Enter Address</Form.Label>
-            <Form.Control type="text" placeholder="Enter Address" size="lg" />
-          </Form.Group>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" size="lg" />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" size="lg" />
-          </Form.Group>
+          <FormGenerator
+            form={constants.signupFormConfig}
+            isFormSubmitted={isFormSubmitted}
+            onUpdateForm={this.updateForm}
+          />
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button variant="primary" type="submit" block size="lg">
