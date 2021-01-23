@@ -11,18 +11,18 @@ var houseController = require("./controllers/houseController");
 /* Set port for local/heroku environment*/
 var port = process.env.PORT || 3001;
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "mydb",
-});
+// var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "password",
+//   database: "mydb",
+// });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-  activateApp();
-});
+// con.connect(function (err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+//   activateApp();
+// });
 
 // Activate the app and routes
 function activateApp() {
@@ -40,10 +40,12 @@ function activateApp() {
 
   app.get("/api/house", houseController.getHouses);
 
+  app.get("/api/popular-houses", houseController.getPopularHouses);
+
   //Start server to listen on port
   app.listen(port, function () {
     console.log("App server started", port);
   });
 }
-
-exports.con = con;
+activateApp();
+// exports.con = con;

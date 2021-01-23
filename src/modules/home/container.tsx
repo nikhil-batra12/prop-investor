@@ -4,15 +4,15 @@ import * as actions from "./actions";
 import Home from "./home";
 
 const mapStateToProps = (state, ownProps) => {
-  const details = selectors.getDetails(state);
+  const popularHouses = selectors.getPopularHouses(state);
 
   return {
-    details,
+    popularHouses,
   };
 };
 
 const mapDispatchToProps = {
-  onGetDetails: actions.initFetchDetails,
+  onGetPopularHouses: actions.fetchPopularHouses,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

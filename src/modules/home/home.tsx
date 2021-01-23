@@ -2,10 +2,9 @@ import React from "react";
 import Image from "react-bootstrap/Image";
 import HouseTile from "components/houseTile/houseTile";
 import ImageCarousel from "components/imageCarousel/imageCarousel";
-import { getRequest } from "api/restService";
 import { Row, Col, Button } from "react-bootstrap";
 class HomeModule extends React.PureComponent<
-  { details: string; onGetDetails: () => void },
+  { popularHouses: any; onGetPopularHouses: () => void },
   { houses: any }
 > {
   state = {
@@ -13,15 +12,13 @@ class HomeModule extends React.PureComponent<
   };
 
   componentDidMount() {
-    // getRequest({ url: "/house" }).then((response) =>
-    //   this.setState({ houses: response.data.houses })
-    // );
+    this.props.onGetPopularHouses();
   }
 
   render() {
-    const { details = "123", onGetDetails } = this.props;
-    const { houses } = this.state;
-    console.log(houses);
+    const {
+      popularHouses: { status, data },
+    } = this.props;
     return (
       <>
         <Row className="pt-5 pb-5">
@@ -47,8 +44,8 @@ class HomeModule extends React.PureComponent<
           </Col>
         </Row>
 
-        <HouseTile />
-        <ImageCarousel config={houses} />
+        <HouseTile houses={data} />
+        {/* <ImageCarousel config={popularHouses} /> */}
       </>
     );
   }

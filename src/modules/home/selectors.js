@@ -6,5 +6,5 @@ import * as constants from "./constants";
 const getState = (state) =>
   _.get(state, [moduleNames.HOME_MODULE], reducer.initialState);
 
-export const getDetails = (state) =>
-  _.get(getState(state), "homeDetails", constants.EMPTY_OBJECT);
+export const getPopularHouses = (state) =>
+  _.get(getState(state), "popularHouses", constants.EMPTY_OBJECT);
