@@ -17,7 +17,7 @@ class PropertiesModule extends React.PureComponent<{
         key={`house-${index}`}
         xs={12}
         md={6}
-        lg={3}
+        lg={4}
         className="d-inline-block"
       >
         <Jumbotron className="p-3">
