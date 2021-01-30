@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Home from "modules/home";
+import Properties from "modules/properties";
 import NavigationPanel from "components/navigationPanel/navigationPanel";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,6 +15,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/properties">
+              <Properties />
             </Route>
           </Switch>
         </Container>

@@ -42,6 +42,8 @@ function activateApp() {
 
   app.get("/api/popular-houses", houseController.getPopularHouses);
 
+  app.get("/api/all-properties", houseController.getAllProperties);
+
   //Start server to listen on port
   app.listen(port, function () {
     console.log("App server started", port);

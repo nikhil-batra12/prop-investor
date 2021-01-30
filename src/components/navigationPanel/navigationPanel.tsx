@@ -6,6 +6,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import LoginSignupForm from "components/loginSignupForm/loginSignupForm";
 import Sidebar from "components/sidebar/sidebar";
+import { Link } from "react-router-dom";
 
 const NavigationPanel = () => {
   const [showLogin, setLogin] = useState(false);
@@ -29,8 +30,12 @@ const NavigationPanel = () => {
         <Navbar.Brand href="#home">React</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
+            <Nav.Link>
+              <Link to="/">Home</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/properties">Properties</Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Button variant="primary" className="mr-3" onClick={handleLoginClick}>

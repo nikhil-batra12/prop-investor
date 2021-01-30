@@ -1,0 +1,52 @@
+[
+  {
+    "address": "House Address",
+    "imgSrc": "images/house1.jpeg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house2.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house3.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house4.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house5.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house1.jpeg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house2.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house3.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house4.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  },
+  {
+    "address": "House Address",
+    "imgSrc": "images/house5.jpg",
+    "description": "This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information."
+  }
+]
