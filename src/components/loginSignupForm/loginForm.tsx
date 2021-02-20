@@ -1,6 +1,6 @@
 import React from "react";
 import _ from "lodash";
-import { Button, Col, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 import FormGenerator from "components/formGenerator/formGenerator";
 import * as constants from "./constants";
@@ -81,7 +81,6 @@ class LoginForm extends React.PureComponent<
           </Form.Label>
         </Modal.Footer>
       </Form>
-      //   </Modal>
     );
   }
 }

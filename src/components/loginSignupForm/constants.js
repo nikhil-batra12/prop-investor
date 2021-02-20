@@ -41,7 +41,7 @@ export const signupFormConfig = {
       placeholder: "Enter Full Name",
       controlType: "text",
       size: "lg",
-      rules: [{ id: "REQUIRED", message: "Email is Required" }],
+      rules: [{ id: "REQUIRED", message: "Full Name is Required" }],
       valid: false,
       showValidationMessage: true,
       validationMessages: ["Full Name is Required"],

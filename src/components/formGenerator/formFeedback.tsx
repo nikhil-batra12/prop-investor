@@ -10,12 +10,10 @@ const getMessage = (validationMessages = []) => {
 const FormFeedback = (props) => {
   const { valid, validationMessages } = props;
   const message = getMessage(validationMessages);
-  const content = valid ? (
-    <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>
-  ) : null;
-  return (
+  const content = valid ? null : (
     <Form.Control.Feedback type="invalid">{message}</Form.Control.Feedback>
   );
+  return <>{content}</>;
 };
 
 export default FormFeedback;
