@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "react-bootstrap/Image";
 import HouseTile from "components/houseTile/houseTile";
-import ImageCarousel from "components/imageCarousel/imageCarousel";
 import { Row, Col, Button } from "react-bootstrap";
 class HomeModule extends React.PureComponent<
   { popularHouses: any; onGetPopularHouses: () => void },
@@ -45,7 +44,6 @@ class HomeModule extends React.PureComponent<
         </Row>
 
         <HouseTile houses={data} />
-        {/* <ImageCarousel config={popularHouses} /> */}
       </>
     );
   }

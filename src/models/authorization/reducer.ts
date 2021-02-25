@@ -1,10 +1,12 @@
 import * as actionTypes from "./actionTypes";
 import _ from "lodash";
-import * as moduleNames from "root/moduleNames";
+import * as modelNames from "root/modelNames";
 import * as asyncActions from "utils/ayncActions";
 
 export const initialState = {
-  popularHouses: { status: asyncActions.NONE, data: [] },
+  login: { status: asyncActions.NONE },
+  signup: { status: asyncActions.NONE },
+  userDetails: {},
 };
 
 export const reducer = (state = initialState, action) => {
@@ -41,4 +43,4 @@ function handleGetPopularHousesPending(state) {
   return _.defaults({ popularHouses: { status: asyncActions.PENDING } }, state);
 }
 
-export default { [moduleNames.HOME_MODULE]: reducer };
+export default { [modelNames.AUTORIZATION_MODEL]: reducer };

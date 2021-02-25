@@ -64,7 +64,12 @@ class PropertiesModule extends React.PureComponent<
     console.log(showAddNewPropertyModal);
     return (
       <Container fluid>
-        <Button onClick={this.handleShowPropertyModal}>Add New Property</Button>
+        <Button
+          className="float-sm-right mt-2"
+          onClick={this.handleShowPropertyModal}
+        >
+          Add New Property
+        </Button>
         <h2 className="mb-3">All Properties</h2>
         <Row>{allProperties}</Row>
         {showAddNewPropertyModal && (
