@@ -1,18 +1,22 @@
 import { connect } from "react-redux";
-import * as selectors from "./selectors";
-import * as actions from "./actions";
+import * as authSelectors from "models/authorization/selectors";
+import * as authActons from "models/authorization/actions";
 import NavigationPanel from "./navigationPanel";
 
 const mapStateToProps = (state) => {
-  const allProperties = selectors.getAllProperies(state);
-
+  const loginInfo = authSelectors.getLoginStatus(state);
+  const signupInfo = authSelectors.getSignupStatus(state);
+  const userDetails = authSelectors.getUserDeails(state);
   return {
-    allProperties,
+    loginInfo,
+    signupInfo,
+    userDetails,
   };
 };
 
 const mapDispatchToProps = {
-  onLogin: actions.login,
+  onLogin: authActons.login,
+  onSgnup: authActons.signup,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationPanel);

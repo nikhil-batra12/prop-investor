@@ -1,5 +1,9 @@
 export const EMPTY_OBJECT = {};
 
-export const POPULAR_HOUSES_URL = {
-  endpoint: "/popular-houses",
+export const LOGIN = {
+  endpoint: "/login",
+};
+
+export const SIGNUP = {
+  endpoint: "/signup",
 };

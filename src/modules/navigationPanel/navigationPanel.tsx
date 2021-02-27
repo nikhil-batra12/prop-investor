@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import _ from "lodash";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
@@ -7,7 +8,8 @@ import Sidebar from "components/sidebar/sidebar";
 import { Link } from "react-router-dom";
 import "./navigationPanel.css";
 
-const NavigationPanel = () => {
+const NavigationPanel = (props) => {
+  const { onLogin, onSignup, loginInfo, signupInfo, userInfo } = props;
   const [showLogin, setLogin] = useState(false);
   const [mode, setMode] = useState(null);
 
@@ -19,6 +21,8 @@ const NavigationPanel = () => {
     setLogin(true);
     setMode("SIGNUP");
   };
+
+  const isUserLogged = !_.isEmpty(userInfo);
 
   const handleLoginModalHide = () => setLogin(false);
 
@@ -36,18 +40,42 @@ const NavigationPanel = () => {
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <Button variant="primary" className="mr-3" onClick={handleLoginClick}>
-          Log In
-        </Button>
-        <Button variant="light" className="mr-3" onClick={handleSignupClick}>
-          Sign Up
-        </Button>
+        {isUserLogged && (
+          <div>
+            Welcome, {userInfo.firstName} {userInfo.lastName}
+          </div>
+        )}
+        {!isUserLogged && (
+          <>
+            <Button
+              variant="primary"
+              className="mr-3"
+              onClick={handleLoginClick}
+            >
+              Log In
+            </Button>
+            <Button
+              variant="light"
+              className="mr-3"
+              onClick={handleSignupClick}
+            >
+              Sign Up
+            </Button>
+          </>
+        )}
         <div className="sidebar-burger">
           <Sidebar />
         </div>
       </Navbar>
       {showLogin && (
-        <LoginSignupForm handleClose={handleLoginModalHide} mode={mode} />
+        <LoginSignupForm
+          handleClose={handleLoginModalHide}
+          mode={mode}
+          onLogin={onLogin}
+          loginInfo={loginInfo}
+          onSignup={onSignup}
+          signupInfo={signupInfo}
+        />
       )}
     </>
   );

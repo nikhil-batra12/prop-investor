@@ -5,7 +5,14 @@ import SignUpForm from "./signUpForm";
 import _ from "lodash";
 
 class loginSignupForm extends React.PureComponent<
-  { handleClose: () => void; mode: string },
+  {
+    handleClose: () => void;
+    mode: string;
+    loginInfo: any;
+    signupInfo: any;
+    onLogin: (params) => void;
+    onSignup: (params) => void;
+  },
   { mode: string }
 > {
   state = {
@@ -15,7 +22,13 @@ class loginSignupForm extends React.PureComponent<
   handleChangeMode = (type = "LOGIN") => this.setState({ mode: type });
 
   render() {
-    const { handleClose } = this.props;
+    const {
+      handleClose,
+      onLogin,
+      onSignup,
+      loginInfo,
+      signupInfo,
+    } = this.props;
     const { mode } = this.state;
     return (
       <Modal show onHide={handleClose}>
@@ -23,12 +36,16 @@ class loginSignupForm extends React.PureComponent<
           <LoginForm
             onChangeMode={_.partial(this.handleChangeMode, "SIGNUP")}
             onClose={handleClose}
+            onLogin={onLogin}
+            loginInfo={loginInfo}
           />
         )}
         {mode === "SIGNUP" && (
           <SignUpForm
             onChangeMode={_.partial(this.handleChangeMode, "LOGIN")}
             onClose={handleClose}
+            onSignup={onSignup}
+            signupInfo={signupInfo}
           />
         )}
       </Modal>

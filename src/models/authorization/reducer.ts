@@ -11,36 +11,86 @@ export const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_POPULAR_HOUSES_SUCCESS:
-      return handleGetPopularHousesSuccess(state, action);
+    case actionTypes.LOGIN_SUCCESS:
+      return handleLoginSuccess(state, action);
 
-    case actionTypes.GET_POPULAR_HOUSES_FAILURE:
-      return handleGetPopularHousesFailure(state, action);
+    case actionTypes.LOGIN_FAILURE:
+      return handleLoginFailure(state, action);
 
-    case actionTypes.GET_POPULAR_HOUSES_PENDING:
-      return handleGetPopularHousesPending(state);
+    case actionTypes.LOGIN_PENDING:
+      return handleLoginPending(state);
+
+    case actionTypes.SIGNUP_SUCCESS:
+      return handleSignUpSuccess(state, action);
+
+    case actionTypes.SIGNUP_FAILURE:
+      return handleSignUpFailure(state, action);
+
+    case actionTypes.SIGNUP_PENDING:
+      return handleSignUpPending(state);
 
     default:
       return state;
   }
 };
 
-function handleGetPopularHousesSuccess(state, action) {
+function handleLoginSuccess(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.SUCCESS, data: action.data.data } },
+    {
+      login: { status: asyncActions.SUCCESS },
+      userDetails: action.data.data,
+    },
     state
   );
 }
 
-function handleGetPopularHousesFailure(state, action) {
+function handleLoginFailure(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.FAILURE, data: action.data } },
+    {
+      login: { status: asyncActions.FAILURE, message: action.data },
+      userDetails: {},
+    },
     state
   );
 }
 
-function handleGetPopularHousesPending(state) {
-  return _.defaults({ popularHouses: { status: asyncActions.PENDING } }, state);
+function handleLoginPending(state) {
+  return _.defaults(
+    {
+      login: { status: asyncActions.PENDING },
+      userDetails: {},
+    },
+    state
+  );
+}
+function handleSignUpSuccess(state, action) {
+  return _.defaults(
+    {
+      signup: { status: asyncActions.SUCCESS },
+      userDetails: action.data.data,
+    },
+    state
+  );
+}
+
+function handleSignUpFailure(state, action) {
+  return _.defaults(
+    {
+      signup: { status: asyncActions.FAILURE, message: action.data },
+      userDetails: {},
+    },
+    state
+  );
+}
+
+function handleSignUpPending(state) {
+  return _.defaults(
+    {
+      signup: { status: asyncActions.PENDING },
+      userDetails: {},
+    },
+    state
+  );
 }
 
 export default { [modelNames.AUTORIZATION_MODEL]: reducer };
