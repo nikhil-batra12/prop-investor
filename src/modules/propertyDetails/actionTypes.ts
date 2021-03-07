@@ -1,7 +1,9 @@
-export const GET_POPULAR_HOUSES: string = "home/get-popular-houses";
-export const GET_POPULAR_HOUSES_SUCCESS: string =
-  "home/get-popular-houses-success";
-export const GET_POPULAR_HOUSES_FAILURE: string =
-  "home/get-popular-houses-failure";
-export const GET_POPULAR_HOUSES_PENDING: string =
-  "home/get-popular-houses-pending";
+export const GET_PROPERTY_DETAILS: string =
+  "property-details/get-porperty-details";
+export const GET_PROPERTY_DETAILS_SUCCESS: string =
+  "property-details/get-porperty-details-success";
+export const GET_PROPERTY_DETAILS_FAILURE: string =
+  "property-details/get-porperty-details-failure";
+export const GET_PROPERTY_DETAILS_PENDING: string =
+  "property-details/get-porperty-details-pending";
+export const RESET_PROPERTY_DETAILS: string = "property-details/reset-details";

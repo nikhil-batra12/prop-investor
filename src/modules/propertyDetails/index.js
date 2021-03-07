@@ -1,3 +1,3 @@
-import Home from "./container";
+import PropertyDetails from "./container";
 
-export default Home;
+export default PropertyDetails;

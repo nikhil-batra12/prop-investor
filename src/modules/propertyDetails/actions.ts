@@ -1,26 +1,34 @@
 import * as actionTypes from "./actionTypes";
 
-export function fetchPopularHouses() {
+export function fetchPropertyDetails(propertyId) {
   return {
-    type: actionTypes.GET_POPULAR_HOUSES,
+    type: actionTypes.GET_PROPERTY_DETAILS,
+    propertyId,
   };
 }
 
-export function fetchPopularHousesSuccess(data) {
+export function fetchPropertyDetailsSuccess(data) {
   return {
-    type: actionTypes.GET_POPULAR_HOUSES_SUCCESS,
+    type: actionTypes.GET_PROPERTY_DETAILS_SUCCESS,
     data,
   };
 }
 
-export function fetchPopularHousesFailure(data) {
+export function fetchPropertyDetailsFailure(data) {
   return {
-    type: actionTypes.GET_POPULAR_HOUSES_FAILURE,
+    type: actionTypes.GET_PROPERTY_DETAILS_FAILURE,
     data,
   };
 }
-export function fetchPopularHousesPending() {
+
+export function fetchPropertyDetailsPending() {
   return {
-    type: actionTypes.GET_POPULAR_HOUSES_PENDING,
+    type: actionTypes.GET_PROPERTY_DETAILS_PENDING,
+  };
+}
+
+export function resetPropertyDetails() {
+  return {
+    type: actionTypes.RESET_PROPERTY_DETAILS,
   };
 }

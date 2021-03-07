@@ -4,7 +4,7 @@ import * as reducer from "./reducer";
 import * as constants from "./constants";
 
 const getState = (state) =>
-  _.get(state, [moduleNames.HOME_MODULE], reducer.initialState);
+  _.get(state, [moduleNames.PROPERTY_DETAILS_MODULE], reducer.initialState);
 
-export const getPopularHouses = (state) =>
-  _.get(getState(state), "popularHouses", constants.EMPTY_OBJECT);
+export const getPropertyDetails = (state) =>
+  _.get(getState(state), "propertyDetails", constants.EMPTY_OBJECT);

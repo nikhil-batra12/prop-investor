@@ -4,41 +4,56 @@ import * as moduleNames from "root/moduleNames";
 import * as asyncActions from "utils/ayncActions";
 
 export const initialState = {
-  popularHouses: { status: asyncActions.NONE, data: [] },
+  propertyDetails: { status: asyncActions.NONE, data: {} },
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_POPULAR_HOUSES_SUCCESS:
-      return handleGetPopularHousesSuccess(state, action);
+    case actionTypes.GET_PROPERTY_DETAILS_SUCCESS:
+      return handleGetPropertyDetailsSuccess(state, action);
 
-    case actionTypes.GET_POPULAR_HOUSES_FAILURE:
-      return handleGetPopularHousesFailure(state, action);
+    case actionTypes.GET_PROPERTY_DETAILS_FAILURE:
+      return handleGetPropertyDetailsFailure(state, action);
 
-    case actionTypes.GET_POPULAR_HOUSES_PENDING:
-      return handleGetPopularHousesPending(state);
+    case actionTypes.GET_PROPERTY_DETAILS_PENDING:
+      return handleGetPropertyDetailsPending(state);
+
+    case actionTypes.RESET_PROPERTY_DETAILS:
+      return handleResetPropertyDetails(state);
 
     default:
       return state;
   }
 };
 
-function handleGetPopularHousesSuccess(state, action) {
+function handleGetPropertyDetailsSuccess(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.SUCCESS, data: action.data.data } },
+    {
+      propertyDetails: { status: asyncActions.SUCCESS, data: action.data.data },
+    },
     state
   );
 }
 
-function handleGetPopularHousesFailure(state, action) {
+function handleGetPropertyDetailsFailure(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.FAILURE, data: action.data } },
+    { propertyDetails: { status: asyncActions.FAILURE, data: action.data } },
     state
   );
 }
 
-function handleGetPopularHousesPending(state) {
-  return _.defaults({ popularHouses: { status: asyncActions.PENDING } }, state);
+function handleGetPropertyDetailsPending(state) {
+  return _.defaults(
+    { propertyDetails: { status: asyncActions.PENDING } },
+    state
+  );
 }
 
-export default { [moduleNames.HOME_MODULE]: reducer };
+function handleResetPropertyDetails(state) {
+  return _.defaults(
+    { propertyDetails: { status: asyncActions.NONE, data: {} } },
+    state
+  );
+}
+
+export default { [moduleNames.PROPERTY_DETAILS_MODULE]: reducer };

@@ -1,18 +1,19 @@
 import { connect } from "react-redux";
 import * as selectors from "./selectors";
 import * as actions from "./actions";
-import Home from "./home";
+import PropertyDetails from "./propertyDetails";
 
-const mapStateToProps = (state, ownProps) => {
-  const popularHouses = selectors.getPopularHouses(state);
+const mapStateToProps = (state) => {
+  const propertyDetails = selectors.getPropertyDetails(state);
 
   return {
-    popularHouses,
+    propertyDetails,
   };
 };
 
 const mapDispatchToProps = {
-  onGetPopularHouses: actions.fetchPopularHouses,
+  onGetPropertyDetails: actions.fetchPropertyDetails,
+  onResetPropertyDetails: actions.resetPropertyDetails,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(PropertyDetails);

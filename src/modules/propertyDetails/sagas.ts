@@ -4,21 +4,22 @@ import * as actions from "./actions";
 import { getRequest } from "api/restService";
 import * as constants from "./constants";
 
-export function* fetchPopularHouses() {
-  yield put(actions.fetchPopularHousesPending());
+export function* fetchPropertyDetails(data) {
+  yield put(actions.fetchPropertyDetailsPending());
   try {
     const response = yield getRequest({
-      url: constants.POPULAR_HOUSES_URL.endpoint,
+      url: constants.PROPERTY_DETAILS_URL.endpoint,
+      interpolateParams: { propertyId: data.propertyId },
     });
-    yield put(actions.fetchPopularHousesSuccess(response));
+    yield put(actions.fetchPropertyDetailsSuccess(response));
   } catch (e) {
-    yield put(actions.fetchPopularHousesFailure(e));
+    yield put(actions.fetchPropertyDetailsFailure(e));
   }
 }
 
 export const onGetDetails = takeLatest(
-  actionTypes.GET_POPULAR_HOUSES,
-  fetchPopularHouses
+  actionTypes.GET_PROPERTY_DETAILS,
+  fetchPropertyDetails
 );
 
 export default [onGetDetails];
