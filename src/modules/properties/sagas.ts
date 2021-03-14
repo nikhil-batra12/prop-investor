@@ -10,7 +10,7 @@ export function* fetchAllProperties() {
     const response = yield getRequest({
       url: constants.ALL_PROPERTIES_URL.endpoint,
     });
-    yield put(actions.fetchAllPropertiesSuccess(response));
+    yield put(actions.fetchAllPropertiesSuccess(response.data));
   } catch (e) {
     yield put(actions.fetchAllPropertiesFailure(e));
   }

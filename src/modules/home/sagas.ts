@@ -10,7 +10,7 @@ export function* fetchPopularHouses() {
     const response = yield getRequest({
       url: constants.POPULAR_HOUSES_URL.endpoint,
     });
-    yield put(actions.fetchPopularHousesSuccess(response));
+    yield put(actions.fetchPopularHousesSuccess(response.data));
   } catch (e) {
     yield put(actions.fetchPopularHousesFailure(e));
   }

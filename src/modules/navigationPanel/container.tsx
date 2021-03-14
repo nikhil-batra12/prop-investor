@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   onLogin: authActons.login,
   onSgnup: authActons.signup,
+  onLogout: authActons.logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationPanel);

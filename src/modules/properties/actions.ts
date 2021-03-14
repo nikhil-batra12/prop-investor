@@ -6,10 +6,10 @@ export function fetchAllProperties() {
   };
 }
 
-export function fetchAllPropertiesSuccess(data) {
+export function fetchAllPropertiesSuccess(response) {
   return {
     type: actionTypes.GET_ALL_PROPERTIES_SUCCESS,
-    data,
+    response,
   };
 }
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = "http://localhost:8080/";
+  axios.defaults.baseURL = "http://localhost:3001/";
   axios.defaults.headers.common["Authorization"] = "AUTH TOKEN";
   axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -19,11 +19,11 @@ const setupAxios = () => {
   axios.interceptors.response.use(
     (response) => {
       console.log(response);
-      return response;
+      return response.data;
     },
     (error) => {
       console.log(error);
-      return Promise.reject(error);
+      // return Promise.reject(error);
     }
   );
 };

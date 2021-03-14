@@ -25,14 +25,19 @@ export const reducer = (state = initialState, action) => {
 
 function handleGetPopularHousesSuccess(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.SUCCESS, data: action.data.data } },
+    {
+      popularHouses: {
+        status: asyncActions.SUCCESS,
+        data: action.response.properties,
+      },
+    },
     state
   );
 }
 
 function handleGetPopularHousesFailure(state, action) {
   return _.defaults(
-    { popularHouses: { status: asyncActions.FAILURE, data: action.data } },
+    { popularHouses: { status: asyncActions.FAILURE, data: action.response } },
     state
   );
 }

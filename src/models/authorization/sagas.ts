@@ -12,7 +12,7 @@ export function* initiateLogin(action) {
       url: constants.LOGIN.endpoint,
       body: action.data,
     });
-    yield put(actions.loginSuccess(response));
+    yield put(actions.loginSuccess(response.data));
   } catch (e) {
     yield put(actions.loginFailure(e));
   }
@@ -32,8 +32,26 @@ export function* initiateSignUp(action) {
   }
 }
 
+export function* initiateLogout() {
+  yield put(actions.logoutPending());
+  try {
+    const response = yield postRequest({
+      url: constants.LOGOUT.endpoint,
+    });
+    if (response.status === 200) {
+      yield put(actions.logoutSuccess());
+    } else {
+      yield put(actions.logoutFailure());
+    }
+  } catch (e) {
+    yield put(actions.logoutFailure());
+  }
+}
+
 export const onLogin = takeLatest(actionTypes.LOGIN, initiateLogin);
 
 export const onSignUp = takeLatest(actionTypes.SIGNUP, initiateSignUp);
 
-export default [onLogin, onSignUp];
+export const onLogout = takeLatest(actionTypes.LOGOUT, initiateLogout);
+
+export default [onLogin, onSignUp, onLogout];

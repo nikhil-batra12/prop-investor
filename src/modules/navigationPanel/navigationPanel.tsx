@@ -3,13 +3,21 @@ import _ from "lodash";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 import LoginSignupForm from "components/loginSignupForm/loginSignupForm";
 import Sidebar from "components/sidebar/sidebar";
 import { Link } from "react-router-dom";
 import "./navigationPanel.css";
 
 const NavigationPanel = (props) => {
-  const { onLogin, onSignup, loginInfo, signupInfo, userInfo } = props;
+  const {
+    onLogin,
+    onSignup,
+    onLogout,
+    loginInfo,
+    signupInfo,
+    userDetails,
+  } = props;
   const [showLogin, setLogin] = useState(false);
   const [mode, setMode] = useState(null);
 
@@ -22,7 +30,13 @@ const NavigationPanel = (props) => {
     setMode("SIGNUP");
   };
 
-  const isUserLogged = !_.isEmpty(userInfo);
+  const handleLogoutClick = () => {
+    setLogin(false);
+    setMode("Login");
+    onLogout();
+  };
+
+  const isUserLogged = !_.isEmpty(userDetails);
 
   const handleLoginModalHide = () => setLogin(false);
 
@@ -41,9 +55,24 @@ const NavigationPanel = (props) => {
           </Nav>
         </Navbar.Collapse>
         {isUserLogged && (
-          <div>
-            Welcome, {userInfo.firstName} {userInfo.lastName}
-          </div>
+          <>
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="success"
+                id="dropdown-basic"
+                className="border-0 bg-transparent light-gray-color"
+              >
+                Welcome, {userDetails.firstName} {userDetails.lastName}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item>My Profile</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogoutClick}>
+                  Sign Out
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </>
         )}
         {!isUserLogged && (
           <>
@@ -67,7 +96,7 @@ const NavigationPanel = (props) => {
           <Sidebar />
         </div>
       </Navbar>
-      {showLogin && (
+      {showLogin && !isUserLogged && (
         <LoginSignupForm
           handleClose={handleLoginModalHide}
           mode={mode}

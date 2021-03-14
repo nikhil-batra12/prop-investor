@@ -7,6 +7,7 @@ var mysql = require("mysql");
 
 /* Internal controller dependencies*/
 var houseController = require("./controllers/houseController");
+var authController = require("./controllers/authController");
 
 /* Set port for local/heroku environment*/
 var port = process.env.PORT || 3001;
@@ -38,11 +39,13 @@ function activateApp() {
   app.use(bodyParser.json());
   app.use(express.static(path.join(__dirname, "../dist")));
 
-  app.get("/api/house", houseController.getHouses);
+  app.get("/house", houseController.getHouses);
 
-  app.get("/api/popular-houses", houseController.getPopularHouses);
+  app.get("/popular-houses", houseController.getPopularHouses);
 
-  app.get("/api/all-properties", houseController.getAllProperties);
+  app.get("/all-properties", houseController.getAllProperties);
+
+  app.post("/authenticate", authController.authenticate);
 
   //Start server to listen on port
   app.listen(port, function () {

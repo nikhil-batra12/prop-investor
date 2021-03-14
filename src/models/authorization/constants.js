@@ -7,3 +7,7 @@ export const LOGIN = {
 export const SIGNUP = {
   endpoint: "/signup",
 };
+
+export const LOGOUT = {
+  endpoint: "/logout",
+};

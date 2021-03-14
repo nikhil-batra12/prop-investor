@@ -1,0 +1,11 @@
+{
+  "status": 200,
+  "data": {
+    "user": {
+      "token": "asdasdkjhk324hkdfskdfjs==",
+      "firstName": "Mayank",
+      "lastName": "Jain",
+      "email": "mj@gmail.com"
+    }
+  }
+}

@@ -6,10 +6,10 @@ export function fetchPopularHouses() {
   };
 }
 
-export function fetchPopularHousesSuccess(data) {
+export function fetchPopularHousesSuccess(response) {
   return {
     type: actionTypes.GET_POPULAR_HOUSES_SUCCESS,
-    data,
+    response,
   };
 }
 

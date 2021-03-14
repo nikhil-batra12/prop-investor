@@ -2,10 +2,12 @@ import * as actionTypes from "./actionTypes";
 import _ from "lodash";
 import * as modelNames from "root/modelNames";
 import * as asyncActions from "utils/ayncActions";
+import * as helpers from "utils/helpers";
 
 export const initialState = {
   login: { status: asyncActions.NONE },
   signup: { status: asyncActions.NONE },
+  logout: { status: asyncActions.NONE },
   userDetails: {},
 };
 
@@ -29,16 +31,26 @@ export const reducer = (state = initialState, action) => {
     case actionTypes.SIGNUP_PENDING:
       return handleSignUpPending(state);
 
+    case actionTypes.LOGOUT_SUCCESS:
+      return handleLogoutSuccess(state, action);
+
+    case actionTypes.LOGOUT_FAILURE:
+      return handleLogoutFailure(state, action);
+
+    case actionTypes.LOGOUT_PENDING:
+      return handleLogoutPending(state);
+
     default:
       return state;
   }
 };
 
 function handleLoginSuccess(state, action) {
+  helpers.setToken(action?.response?.user?.token);
   return _.defaults(
     {
       login: { status: asyncActions.SUCCESS },
-      userDetails: action.data.data,
+      userDetails: action.response.user,
     },
     state
   );
@@ -67,7 +79,7 @@ function handleSignUpSuccess(state, action) {
   return _.defaults(
     {
       signup: { status: asyncActions.SUCCESS },
-      userDetails: action.data.data,
+      userDetails: action.data.data.user,
     },
     state
   );
@@ -87,6 +99,25 @@ function handleSignUpPending(state) {
   return _.defaults(
     {
       signup: { status: asyncActions.PENDING },
+      userDetails: {},
+    },
+    state
+  );
+}
+function handleLogoutSuccess(state, action) {
+  helpers.clearToken();
+  return initialState;
+}
+
+function handleLogoutFailure(state, action) {
+  helpers.clearToken();
+  return initialState;
+}
+
+function handleLogoutPending(state) {
+  return _.defaults(
+    {
+      logout: { status: asyncActions.PENDING },
       userDetails: {},
     },
     state

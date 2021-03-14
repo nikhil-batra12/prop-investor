@@ -7,10 +7,10 @@ export function login(data) {
   };
 }
 
-export function loginSuccess(data) {
+export function loginSuccess(response) {
   return {
     type: actionTypes.LOGIN_SUCCESS,
-    data,
+    response,
   };
 }
 
@@ -48,5 +48,28 @@ export function signupFailure(data) {
 export function signupPending() {
   return {
     type: actionTypes.SIGNUP_PENDING,
+  };
+}
+
+export function logout() {
+  return {
+    type: actionTypes.LOGOUT,
+  };
+}
+
+export function logoutSuccess() {
+  return {
+    type: actionTypes.LOGOUT_SUCCESS,
+  };
+}
+
+export function logoutFailure() {
+  return {
+    type: actionTypes.LOGOUT_FAILURE,
+  };
+}
+export function logoutPending() {
+  return {
+    type: actionTypes.LOGOUT_PENDING,
   };
 }

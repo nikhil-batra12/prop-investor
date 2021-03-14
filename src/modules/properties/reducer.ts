@@ -25,7 +25,12 @@ export const reducer = (state = initialState, action) => {
 
 function handleGetAllPropertiesSuccess(state, action) {
   return _.defaults(
-    { allProperties: { status: asyncActions.SUCCESS, data: action.data.data } },
+    {
+      allProperties: {
+        status: asyncActions.SUCCESS,
+        data: action.response.properties,
+      },
+    },
     state
   );
 }
