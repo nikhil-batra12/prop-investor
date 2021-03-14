@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const setupAxios = () => {
-  axios.defaults.baseURL = "http://localhost:3001/api";
+  axios.defaults.baseURL = "http://localhost:8080/";
   axios.defaults.headers.common["Authorization"] = "AUTH TOKEN";
   axios.defaults.headers.post["Content-Type"] = "application/json";
 

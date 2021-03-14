@@ -1,7 +1,7 @@
 export const EMPTY_OBJECT = {};
 
 export const LOGIN = {
-  endpoint: "/login",
+  endpoint: "/authenticate",
 };
 
 export const SIGNUP = {

@@ -3,7 +3,7 @@ export const loginFormConfig = {
   fields: [
     {
       type: "TEXTBOX",
-      controlId: "formBasicEmail",
+      controlId: "username",
       label: "Enter Email Address",
       placeholder: "Enter Email Address",
       controlType: "email",
@@ -18,7 +18,7 @@ export const loginFormConfig = {
     },
     {
       type: "TEXTBOX",
-      controlId: "formBasicPassword",
+      controlId: "password",
       label: "Enter Password",
       placeholder: "Enter Password",
       controlType: "password",
