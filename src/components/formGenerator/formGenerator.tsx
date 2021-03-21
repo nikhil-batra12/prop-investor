@@ -1,7 +1,6 @@
 import React from "react";
 import _ from "lodash";
 import { Form } from "react-bootstrap";
-import { bindHandlers } from "utils/bindHandler";
 import validation from "utils/formValidity/validation";
 import FormFeedback from "./formFeedback";
 
@@ -36,7 +35,8 @@ class FormGenerator extends React.PureComponent<{
       updatedField.value
     );
     updatedField.valid = valid;
-    updatedField.validationMessages = validationMessages;
+    updatedField.validationMessages =
+      validationMessages || updatedField?.rules[0]?.message;
     updatedFormFields[index] = updatedField;
     updatedForm.fields = updatedFormFields;
     this.setState({ formObj: updatedForm }, () => this.setFormValidity());
@@ -57,8 +57,13 @@ class FormGenerator extends React.PureComponent<{
       controlType,
       valid,
       validationMessages,
+      value,
       size = "lg",
+      rules,
     } = elementConfig;
+    const messages = _.isEmpty(validationMessages)
+      ? [rules[0]?.message]
+      : validationMessages;
     switch (type) {
       case "TEXTBOX":
         return (
@@ -71,11 +76,9 @@ class FormGenerator extends React.PureComponent<{
               onChange={this.handleTextBoxChange}
               isValid={valid}
               isInvalid={isFormSubmitted && !valid}
+              value={value}
             />
-            <FormFeedback
-              valid={valid}
-              validationMessages={validationMessages}
-            />
+            <FormFeedback valid={valid} validationMessages={messages} />
           </Form.Group>
         );
     }

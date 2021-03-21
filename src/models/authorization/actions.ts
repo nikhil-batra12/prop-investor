@@ -73,3 +73,27 @@ export function logoutPending() {
     type: actionTypes.LOGOUT_PENDING,
   };
 }
+export function fetchUser() {
+  return {
+    type: actionTypes.FETCH_USER,
+  };
+}
+
+export function fetchUserSuccess(response) {
+  return {
+    type: actionTypes.FETCH_USER_SUCCESS,
+    response,
+  };
+}
+
+export function fetchUserFailure(data) {
+  return {
+    type: actionTypes.FETCH_USER_FAILURE,
+    data,
+  };
+}
+export function fetchUserPending() {
+  return {
+    type: actionTypes.FETCH_USER_PENDING,
+  };
+}

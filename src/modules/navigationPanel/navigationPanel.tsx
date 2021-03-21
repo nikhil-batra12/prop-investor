@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -17,7 +17,11 @@ const NavigationPanel = (props) => {
     loginInfo,
     signupInfo,
     userDetails,
+    onFetchUser,
   } = props;
+
+  useEffect(() => onFetchUser(), []);
+
   const [showLogin, setLogin] = useState(false);
   const [mode, setMode] = useState(null);
 
@@ -43,7 +47,9 @@ const NavigationPanel = (props) => {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
-        <Navbar.Brand href="#home">React</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/">BlockMyPlot</Link>
+        </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
@@ -51,6 +57,9 @@ const NavigationPanel = (props) => {
             </Nav.Link>
             <Nav.Link>
               <Link to="/properties">Properties</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/my-profile">My Profile</Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

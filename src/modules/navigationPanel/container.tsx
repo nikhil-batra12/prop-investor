@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import * as authSelectors from "models/authorization/selectors";
-import * as authActons from "models/authorization/actions";
+import * as authActions from "models/authorization/actions";
 import NavigationPanel from "./navigationPanel";
 
 const mapStateToProps = (state) => {
@@ -15,9 +15,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  onLogin: authActons.login,
-  onSgnup: authActons.signup,
-  onLogout: authActons.logout,
+  onLogin: authActions.login,
+  onSgnup: authActions.signup,
+  onLogout: authActions.logout,
+  onFetchUser: authActions.fetchUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationPanel);

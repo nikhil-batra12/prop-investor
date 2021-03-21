@@ -48,10 +48,31 @@ export function* initiateLogout() {
   }
 }
 
+export function* initiateFetchUser() {
+  yield put(actions.fetchUserPending());
+  try {
+    const response = yield postRequest({
+      url: constants.FETCH_USER.endpoint,
+    });
+    if (response.status === 200) {
+      yield put(actions.fetchUserSuccess(response.data));
+    } else {
+      yield put(actions.fetchUserFailure(response.data));
+    }
+  } catch (e) {
+    yield put(actions.fetchUserFailure({ data: "Something went wrong" }));
+  }
+}
+
 export const onLogin = takeLatest(actionTypes.LOGIN, initiateLogin);
 
 export const onSignUp = takeLatest(actionTypes.SIGNUP, initiateSignUp);
 
 export const onLogout = takeLatest(actionTypes.LOGOUT, initiateLogout);
+
+export const onFetchUser = takeLatest(
+  actionTypes.FETCH_USER,
+  initiateFetchUser
+);
 
 export default [onLogin, onSignUp, onLogout];

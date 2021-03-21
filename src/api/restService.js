@@ -1,14 +1,13 @@
 import axios from "axios";
 import _ from "lodash";
-
-const getToken = () => localStorage.getItem("token") || null;
+import * as helpers from "utils/helpers";
 
 const defaultGetConfig = {
   url: null,
   interpolateParams: {},
   queryParams: {},
   headers: {
-    token: getToken(),
+    Authorization: helpers.getToken(),
   },
 };
 
@@ -18,7 +17,7 @@ const defaultPostConfig = {
   body: {},
   queryParams: {},
   headers: {
-    token: getToken(),
+    Authorization: helpers.getToken(),
   },
 };
 

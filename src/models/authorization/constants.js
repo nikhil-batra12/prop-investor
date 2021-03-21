@@ -11,3 +11,7 @@ export const SIGNUP = {
 export const LOGOUT = {
   endpoint: "/logout",
 };
+
+export const FETCH_USER = {
+  endpoint: "/user",
+};

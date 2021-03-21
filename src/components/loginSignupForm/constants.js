@@ -14,7 +14,6 @@ export const loginFormConfig = {
       ],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Email is Required", "Value is not valid"],
     },
     {
       type: "TEXTBOX",
@@ -26,7 +25,6 @@ export const loginFormConfig = {
       rules: [{ id: "REQUIRED", message: "Password is Required" }],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Password is Required"],
     },
   ],
 };
@@ -44,7 +42,6 @@ export const signupFormConfig = {
       rules: [{ id: "REQUIRED", message: "Full Name is Required" }],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Full Name is Required"],
     },
     {
       type: "TEXTBOX",
@@ -56,7 +53,6 @@ export const signupFormConfig = {
       rules: [{ id: "REQUIRED", message: "Address is Required" }],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Address is Required"],
     },
     {
       type: "TEXTBOX",
@@ -71,7 +67,6 @@ export const signupFormConfig = {
       ],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Email is Required", "Value is not valid"],
     },
     {
       type: "TEXTBOX",
@@ -83,7 +78,6 @@ export const signupFormConfig = {
       rules: [{ id: "REQUIRED", message: "Password is Required" }],
       valid: false,
       showValidationMessage: true,
-      validationMessages: ["Password is Required"],
     },
   ],
 };

@@ -2,7 +2,6 @@ import axios from "axios";
 
 const setupAxios = () => {
   axios.defaults.baseURL = "http://localhost:3001/";
-  axios.defaults.headers.common["Authorization"] = "AUTH TOKEN";
   axios.defaults.headers.post["Content-Type"] = "application/json";
 
   axios.interceptors.request.use(

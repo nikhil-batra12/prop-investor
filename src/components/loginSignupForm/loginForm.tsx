@@ -101,15 +101,6 @@ class LoginForm extends React.PureComponent<
               />
             )}
           </Button>
-          {/* <Button variant="link" block>
-            <GoogleLogin
-              clientId="614608788173-s48a5n2q5fr119f48fm6tprgbh5299gn.apps.googleusercontent.com"
-              buttonText="Sign In via Google"
-              onSuccess={this.onSignIn}
-              onFailure={this.onSignIn}
-              cookiePolicy={"single_host_origin"}
-            />
-          </Button> */}
           <Form.Label>
             Don't have an account?
             <Button variant="link" className="pl-1 pt-0" onClick={onChangeMode}>

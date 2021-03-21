@@ -12,3 +12,8 @@ export const SIGNUP: string = "navigation/signup";
 export const SIGNUP_SUCCESS: string = "navigation/signup-success";
 export const SIGNUP_FAILURE: string = "navigation/signup-failure";
 export const SIGNUP_PENDING: string = "navigation/signup-pending";
+
+export const FETCH_USER: string = "user/signup";
+export const FETCH_USER_SUCCESS: string = "user/fetch-user-success";
+export const FETCH_USER_FAILURE: string = "user/fetch-user-failure";
+export const FETCH_USER_PENDING: string = "user/fetch-user-pending";
