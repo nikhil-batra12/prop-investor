@@ -1,8 +1,9 @@
 import React from "react";
 import _ from "lodash";
-import { Button, Form, Modal, Spinner, Toast } from "react-bootstrap";
+import { Button, Form, Modal, Spinner, Toast, Col } from "react-bootstrap";
 import * as helpers from "utils/helpers";
-import FormGenerator from "components/formGenerator/formGenerator";
+import validation from "utils/formValidity/validation";
+import FormFeedback from "components/formGenerator/formFeedback";
 import * as constants from "./constants";
 
 class SignUpForm extends React.PureComponent<
@@ -12,12 +13,55 @@ class SignUpForm extends React.PureComponent<
     onSignup: (params) => void;
     signupInfo: any;
   },
-  { isFormSubmitted: boolean; isFormValid: boolean; generatedPostObj: any }
+  { isFormSubmitted: boolean; isFormValid: boolean; form: any }
 > {
   state = {
     isFormSubmitted: false,
     isFormValid: false,
-    generatedPostObj: {},
+    form: {
+      firstName: {
+        valid: false,
+        value: "",
+        rules: constants.validation.firstName.rules,
+        validationMessages: [constants.validation.firstName.rules[0].message],
+      },
+      lastName: {
+        valid: false,
+        value: "",
+        rules: constants.validation.lastName.rules,
+        validationMessages: [constants.validation.lastName.rules[0].message],
+      },
+      username: {
+        valid: false,
+        value: "",
+        rules: constants.validation.username.rules,
+        validationMessages: [constants.validation.username.rules[0].message],
+      },
+      password: {
+        valid: false,
+        value: "",
+        rules: constants.validation.password.rules,
+        validationMessages: [constants.validation.password.rules[0].message],
+      },
+      city: {
+        valid: false,
+        value: "",
+        rules: constants.validation.city.rules,
+        validationMessages: [constants.validation.city.rules[0].message],
+      },
+      state: {
+        valid: false,
+        value: "",
+        rules: constants.validation.state.rules,
+        validationMessages: [constants.validation.state.rules[0].message],
+      },
+      zip: {
+        valid: false,
+        value: "",
+        rules: constants.validation.zip.rules,
+        validationMessages: [constants.validation.zip.rules[0].message],
+      },
+    },
   };
 
   handleSubmit = (event) => {
@@ -26,25 +70,54 @@ class SignUpForm extends React.PureComponent<
     event.preventDefault();
     event.stopPropagation();
     if (isFormValid) {
-      onSignup(this.state.generatedPostObj);
+      const postObj = this.generateFormPostObj();
+      onSignup(postObj);
     }
     this.setState({ isFormSubmitted: true });
   };
 
-  generateFormPostObj = (formObj) => {
+  generateFormPostObj = () => {
     const postObj = {};
-    _.map(formObj.fields, (field) => (postObj[field.controlId] = field.value));
+    _.forOwn(this.state.form, (value, key) => (postObj[key] = value.value));
     return postObj;
   };
 
-  updateForm = (formObj) => {
-    this.setState({ generatedPostObj: this.generateFormPostObj(formObj) });
-    this.setState({ isFormValid: formObj.formValid });
+  setFormValidity = () => {
+    const { form } = this.state;
+    this.setState({ isFormValid: validation.checkFormValidity(form) });
+  };
+
+  updateForm = (id, value) => {
+    const { form } = this.state;
+    const updatedForm = { ...form };
+    const updatedFormField = { ...updatedForm[id] };
+    updatedFormField.value = value;
+
+    const { valid, validationMessages } = validation.checkFieldValidity(
+      updatedFormField.rules,
+      value
+    );
+    updatedFormField.valid = valid;
+    updatedFormField.validationMessages =
+      validationMessages || updatedFormField?.rules[0]?.message;
+    updatedForm[id] = updatedFormField;
+    this.setState({ form: updatedForm }, () => this.setFormValidity());
+  };
+
+  handleTextBoxChange = (event) => {
+    const { value, id } = event.target;
+    this.updateForm(id, value);
+  };
+
+  handleCountryChange = (event) => {
+    const { id, value } = event.target;
+    console.log(id, value);
+    this.updateForm(id, value);
   };
 
   render() {
     const { onChangeMode, signupInfo } = this.props;
-    const { isFormSubmitted } = this.state;
+    const { isFormSubmitted, form } = this.state;
     const isPending = helpers.isPending(signupInfo.status);
     const isFailure = helpers.isFailure(signupInfo.status);
     return (
@@ -69,11 +142,142 @@ class SignUpForm extends React.PureComponent<
           )}
         </Modal.Header>
         <Modal.Body>
-          <FormGenerator
-            form={constants.signupFormConfig}
-            isFormSubmitted={isFormSubmitted}
-            onUpdateForm={this.updateForm}
-          />
+          <Form.Row>
+            <Col>
+              <Form.Group controlId="firstName" key="firstName">
+                <Form.Label>Enter First Name</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter First Name"
+                  size="lg"
+                  onChange={this.handleTextBoxChange}
+                  isValid={form["firstName"].valid}
+                  isInvalid={isFormSubmitted && !form["firstName"].valid}
+                  value={form["firstName"].value}
+                />
+                <FormFeedback
+                  valid={form["firstName"].valid}
+                  validationMessages={form["firstName"].validationMessages}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="lastName" key="lastName">
+                <Form.Label>Enter Last Name</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Last Name"
+                  size="lg"
+                  onChange={this.handleTextBoxChange}
+                  isValid={form["lastName"].valid}
+                  isInvalid={isFormSubmitted && !form["lastName"].valid}
+                  value={form["lastName"].value}
+                />
+                <FormFeedback
+                  valid={form["lastName"].valid}
+                  validationMessages={form["lastName"].validationMessages}
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Group controlId="username" key="username">
+            <Form.Label>Enter Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter Email Address"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["username"].valid}
+              isInvalid={isFormSubmitted && !form["username"].valid}
+              value={form["username"].value}
+            />
+            <FormFeedback
+              valid={form["username"].valid}
+              validationMessages={form["username"].validationMessages}
+            />
+          </Form.Group>
+          <Form.Group controlId="password" key="password">
+            <Form.Label>Enter Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter Password"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["password"].valid}
+              isInvalid={isFormSubmitted && !form["password"].valid}
+              value={form["password"].value}
+            />
+            <FormFeedback
+              valid={form["password"].valid}
+              validationMessages={form["password"].validationMessages}
+            />
+          </Form.Group>
+          <Form.Group controlId="city" key="city">
+            <Form.Label>Enter City Name</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter City Name"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["city"].valid}
+              isInvalid={isFormSubmitted && !form["city"].valid}
+              value={form["city"].value}
+            />
+            <FormFeedback
+              valid={form["city"].valid}
+              validationMessages={form["city"].validationMessages}
+            />
+          </Form.Group>
+          <Form.Row>
+            <Col>
+              <Form.Group controlId="state" key="state">
+                <Form.Label>Enter State Name</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter State Name"
+                  size="lg"
+                  onChange={this.handleTextBoxChange}
+                  isValid={form["state"].valid}
+                  isInvalid={isFormSubmitted && !form["state"].valid}
+                  value={form["state"].value}
+                />
+                <FormFeedback
+                  valid={form["state"].valid}
+                  validationMessages={form["state"].validationMessages}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="zip" key="zip">
+                <Form.Label>Enter Zip Code</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Zip Code"
+                  size="lg"
+                  onChange={this.handleTextBoxChange}
+                  isValid={form["zip"].valid}
+                  isInvalid={isFormSubmitted && !form["zip"].valid}
+                  value={form["zip"].value}
+                />
+                <FormFeedback
+                  valid={form["zip"].valid}
+                  validationMessages={form["zip"].validationMessages}
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Group controlId="country">
+            <Form.Label>Select County</Form.Label>
+            <Form.Control
+              as="select"
+              size="lg"
+              onChange={this.handleCountryChange}
+            >
+              {_.map(constants.countriesList, (country) => (
+                <option key={country.code}>{country.name}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button

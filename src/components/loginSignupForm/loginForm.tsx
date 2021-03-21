@@ -2,8 +2,8 @@ import React from "react";
 import _ from "lodash";
 import { Button, Form, Modal, Spinner, Toast } from "react-bootstrap";
 import * as helpers from "utils/helpers";
-// import { GoogleLogin } from "react-google-login";
-import FormGenerator from "components/formGenerator/formGenerator";
+import validation from "utils/formValidity/validation";
+import FormFeedback from "components/formGenerator/formFeedback";
 import * as constants from "./constants";
 class LoginForm extends React.PureComponent<
   {
@@ -12,20 +12,30 @@ class LoginForm extends React.PureComponent<
     onLogin: (params) => void;
     loginInfo: any;
   },
-  { isFormSubmitted: boolean; isFormValid: boolean; generatedPostObj: any }
+  {
+    isFormSubmitted: boolean;
+    isFormValid: boolean;
+    form: any;
+  }
 > {
   state = {
     isFormSubmitted: false,
     isFormValid: false,
-    generatedPostObj: {},
+    form: {
+      username: {
+        valid: false,
+        value: "",
+        rules: constants.validation.username.rules,
+        validationMessages: [constants.validation.username.rules[0].message],
+      },
+      password: {
+        valid: false,
+        value: "",
+        rules: constants.validation.password.rules,
+        validationMessages: [constants.validation.password.rules[0].message],
+      },
+    },
   };
-
-  onSignIn = (googleUser) => {
-    localStorage.setItem("token", googleUser.tokenId);
-    this.props.onClose();
-  };
-
-  onFailed = (res) => console.log(res);
 
   handleSubmit = (event) => {
     const { isFormValid } = this.state;
@@ -33,25 +43,48 @@ class LoginForm extends React.PureComponent<
     event.preventDefault();
     event.stopPropagation();
     if (isFormValid) {
-      onLogin(this.state.generatedPostObj);
+      const postObj = this.generateFormPostObj();
+      onLogin(postObj);
     }
     this.setState({ isFormSubmitted: true });
   };
 
-  generateFormPostObj = (formObj) => {
+  generateFormPostObj = () => {
     const postObj = {};
-    _.map(formObj.fields, (field) => (postObj[field.controlId] = field.value));
+    _.forOwn(this.state.form, (value, key) => (postObj[key] = value.value));
     return postObj;
   };
 
-  updateForm = (formObj) => {
-    this.setState({ generatedPostObj: this.generateFormPostObj(formObj) });
-    this.setState({ isFormValid: formObj.formValid });
+  setFormValidity = () => {
+    const { form } = this.state;
+    this.setState({ isFormValid: validation.checkFormValidity(form) });
+  };
+
+  updateForm = (id, value) => {
+    const { form } = this.state;
+    const updatedForm = { ...form };
+    const updatedFormField = { ...updatedForm[id] };
+    updatedFormField.value = value;
+
+    const { valid, validationMessages } = validation.checkFieldValidity(
+      updatedFormField.rules,
+      value
+    );
+    updatedFormField.valid = valid;
+    updatedFormField.validationMessages =
+      validationMessages || updatedFormField?.rules[0]?.message;
+    updatedForm[id] = updatedFormField;
+    this.setState({ form: updatedForm }, () => this.setFormValidity());
+  };
+
+  handleTextBoxChange = (event) => {
+    const { value, id } = event.target;
+    this.updateForm(id, value);
   };
 
   render() {
     const { onChangeMode, loginInfo } = this.props;
-    const { isFormSubmitted } = this.state;
+    const { isFormSubmitted, form } = this.state;
     const isPending = helpers.isPending(loginInfo.status);
     const isFailure = helpers.isFailure(loginInfo.status);
     return (
@@ -67,7 +100,6 @@ class LoginForm extends React.PureComponent<
                   alt=""
                 />
                 <strong className="mr-auto">Login Failed</strong>
-                <small>11 mins ago</small>
               </Toast.Header>
               <Toast.Body>
                 {loginInfo.message || "Invalid credentials"}
@@ -76,11 +108,38 @@ class LoginForm extends React.PureComponent<
           )}
         </Modal.Header>
         <Modal.Body>
-          <FormGenerator
-            form={constants.loginFormConfig}
-            isFormSubmitted={isFormSubmitted}
-            onUpdateForm={this.updateForm}
-          />
+          <Form.Group controlId="username" key="username">
+            <Form.Label>Enter Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter Email Address"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["username"].valid}
+              isInvalid={isFormSubmitted && !form["username"].valid}
+              value={form["username"].value}
+            />
+            <FormFeedback
+              valid={form["username"].valid}
+              validationMessages={form["username"].validationMessages}
+            />
+          </Form.Group>
+          <Form.Group controlId="password" key="password">
+            <Form.Label>Enter Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter Password"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["password"].valid}
+              isInvalid={isFormSubmitted && !form["password"].valid}
+              value={form["password"].value}
+            />
+            <FormFeedback
+              valid={form["password"].valid}
+              validationMessages={form["password"].validationMessages}
+            />
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button
