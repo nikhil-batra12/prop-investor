@@ -6,7 +6,7 @@ import NavigationPanel from "./navigationPanel";
 const mapStateToProps = (state) => {
   const loginInfo = authSelectors.getLoginStatus(state);
   const signupInfo = authSelectors.getSignupStatus(state);
-  const userDetails = authSelectors.getUserDeails(state);
+  const userDetails = authSelectors.getUserDetails(state);
   return {
     loginInfo,
     signupInfo,

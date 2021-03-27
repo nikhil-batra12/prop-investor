@@ -4,7 +4,8 @@ import { Button, Form, Modal, Spinner, Toast, Col } from "react-bootstrap";
 import * as helpers from "utils/helpers";
 import validation from "utils/formValidity/validation";
 import FormFeedback from "components/formGenerator/formFeedback";
-import * as constants from "./constants";
+import * as countriesConstant from "utils/constants/countries";
+import * as validationConstants from 'utils/formValidity/constants';
 
 class SignUpForm extends React.PureComponent<
   {
@@ -22,44 +23,44 @@ class SignUpForm extends React.PureComponent<
       firstName: {
         valid: false,
         value: "",
-        rules: constants.validation.firstName.rules,
-        validationMessages: [constants.validation.firstName.rules[0].message],
+        rules: validationConstants.validation.firstName.rules,
+        validationMessages: [validationConstants.validation.firstName.rules[0].message],
       },
       lastName: {
         valid: false,
         value: "",
-        rules: constants.validation.lastName.rules,
-        validationMessages: [constants.validation.lastName.rules[0].message],
+        rules: validationConstants.validation.lastName.rules,
+        validationMessages: [validationConstants.validation.lastName.rules[0].message],
       },
       username: {
         valid: false,
         value: "",
-        rules: constants.validation.username.rules,
-        validationMessages: [constants.validation.username.rules[0].message],
+        rules: validationConstants.validation.username.rules,
+        validationMessages: [validationConstants.validation.username.rules[0].message],
       },
       password: {
         valid: false,
         value: "",
-        rules: constants.validation.password.rules,
-        validationMessages: [constants.validation.password.rules[0].message],
+        rules: validationConstants.validation.password.rules,
+        validationMessages: [validationConstants.validation.password.rules[0].message],
       },
       city: {
         valid: false,
         value: "",
-        rules: constants.validation.city.rules,
-        validationMessages: [constants.validation.city.rules[0].message],
+        rules: validationConstants.validation.city.rules,
+        validationMessages: [validationConstants.validation.city.rules[0].message],
       },
       state: {
         valid: false,
         value: "",
-        rules: constants.validation.state.rules,
-        validationMessages: [constants.validation.state.rules[0].message],
+        rules: validationConstants.validation.state.rules,
+        validationMessages: [validationConstants.validation.state.rules[0].message],
       },
       zip: {
         valid: false,
         value: "",
-        rules: constants.validation.zip.rules,
-        validationMessages: [constants.validation.zip.rules[0].message],
+        rules: validationConstants.validation.zip.rules,
+        validationMessages: [validationConstants.validation.zip.rules[0].message],
       },
     },
   };
@@ -273,7 +274,7 @@ class SignUpForm extends React.PureComponent<
               size="lg"
               onChange={this.handleCountryChange}
             >
-              {_.map(constants.countriesList, (country) => (
+              {_.map(countriesConstant.countriesList, (country) => (
                 <option key={country.code}>{country.name}</option>
               ))}
             </Form.Control>

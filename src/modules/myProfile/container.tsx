@@ -4,10 +4,12 @@ import * as actions from "./actions";
 import MyProfile from "./myProfile";
 
 const mapStateToProps = (state) => {
-  const userDetails = selectors.getUserDeails(state);
+  const userDetails = selectors.getUserDetails(state);
+  const fetchUserStatus = selectors.getFetchUserStatus(state);
 
   return {
     userDetails,
+    fetchUserStatus,
   };
 };
 

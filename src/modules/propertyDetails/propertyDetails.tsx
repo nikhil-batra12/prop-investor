@@ -34,13 +34,14 @@ class PropertyDetails extends React.PureComponent<
     } = this.props;
     return (
       <>
-        <Row className="pt-5 pb-5">
+        <Row className="pb-5">
           <Col
             xs={12}
             lg={{ span: 5, offset: 1 }}
             className="text-lg-left text-md-center p-4"
           >
-            <h1 className="pb-4">Property Details</h1>
+            <h2 className="pb-4">Property Details</h2>
+            <Image src="/images/house2.jpg" fluid />
           </Col>
         </Row>
       </>

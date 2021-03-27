@@ -12,5 +12,8 @@ export const getLoginStatus = (state) =>
 export const getSignupStatus = (state) =>
   _.get(getState(state), "signup", constants.EMPTY_OBJECT);
 
-export const getUserDeails = (state) =>
+export const getUserDetails = (state) =>
   _.get(getState(state), "userDetails", constants.EMPTY_OBJECT);
+
+export const getFetchUserStatus = (state) =>
+  _.get(getState(state), "fetchUser", constants.EMPTY_OBJECT);
