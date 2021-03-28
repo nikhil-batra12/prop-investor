@@ -5,7 +5,7 @@ export const LOGIN = {
 };
 
 export const SIGNUP = {
-  endpoint: "/signup",
+  endpoint: "/registerUser",
 };
 
 export const LOGOUT = {

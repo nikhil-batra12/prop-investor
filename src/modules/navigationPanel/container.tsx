@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   onLogin: authActions.login,
-  onSgnup: authActions.signup,
+  onSignup: authActions.signup,
   onLogout: authActions.logout,
   onFetchUser: authActions.fetchUser,
 };

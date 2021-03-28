@@ -1,0 +1,21 @@
+{
+  "status": 200,
+  "data": {
+    "propertyDetails": {
+      "id": 103,
+      "name": "Sample Prop 1",
+      "address_1": "House-1 Street 1",
+      "address_2": "boulevard of broken dreams",
+      "city": "wakanda",
+      "country": "planet of Apes",
+      "zip": "94538",
+      "landmark": "Near Elon Musk House",
+      "squareFeet": 4000,
+      "value": 150000,
+      "about": "Testing out the property for greater goods",
+      "mapLink": "https://www.google.co.in/maps/place/Tesla+Factory/@37.4929966,-121.9485773,18.04z/data=!4m5!3m4!1s0x808fc79c0a7a2069:0xb5789d749240836b!8m2!3d37.4934895!4d-121.9452364?hl=en",
+      "numOfBedrooms": 3,
+      "numOfBathrooms": 3
+    }
+  }
+}

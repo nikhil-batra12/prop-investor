@@ -90,7 +90,7 @@ function handleSignUpSuccess(state, action) {
   return _.defaults(
     {
       signup: { status: asyncActions.SUCCESS },
-      userDetails: action.data.data.user,
+      userDetails: {},
     },
     state
   );

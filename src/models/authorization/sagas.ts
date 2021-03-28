@@ -1,7 +1,7 @@
 import { takeLatest, put } from "redux-saga/effects";
 import * as actionTypes from "./actionTypes";
 import * as actions from "./actions";
-import { postRequest } from "api/restService";
+import { postRequest, getRequest } from "api/restService";
 import * as constants from "./constants";
 
 export function* initiateLogin(action) {
@@ -23,7 +23,7 @@ export function* initiateSignUp(action) {
   yield put(actions.signupPending());
   try {
     const response = yield postRequest({
-      url: constants.LOGIN.endpoint,
+      url: constants.SIGNUP.endpoint,
       body: action.data,
     });
     yield put(actions.signupSuccess(response));
@@ -51,7 +51,7 @@ export function* initiateLogout() {
 export function* initiateFetchUser() {
   yield put(actions.fetchUserPending());
   try {
-    const response = yield postRequest({
+    const response = yield getRequest({
       url: constants.FETCH_USER.endpoint,
     });
     if (response.status === 200) {
@@ -75,4 +75,4 @@ export const onFetchUser = takeLatest(
   initiateFetchUser
 );
 
-export default [onLogin, onSignUp, onLogout];
+export default [onLogin, onSignUp, onLogout, onFetchUser];

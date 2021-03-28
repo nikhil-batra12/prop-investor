@@ -58,9 +58,6 @@ const NavigationPanel = (props) => {
             <Nav.Link>
               <Link to="/properties">Properties</Link>
             </Nav.Link>
-            <Nav.Link>
-              <Link to="/my-profile">My Profile</Link>
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         {isUserLogged && (
@@ -75,7 +72,9 @@ const NavigationPanel = (props) => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item>My Profile</Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to="/my-profile">My Profile</Link>
+                </Dropdown.Item>
                 <Dropdown.Item onClick={handleLogoutClick}>
                   Sign Out
                 </Dropdown.Item>

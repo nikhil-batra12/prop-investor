@@ -4,6 +4,7 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import { Col, Container, Row, Image } from "react-bootstrap";
 import Carousel from "react-bootstrap/Carousel";
+import { Link } from "react-router-dom";
 
 class HouseTile extends React.PureComponent<{ houses: any }> {
   getHouse(config, index) {
@@ -16,11 +17,13 @@ class HouseTile extends React.PureComponent<{ houses: any }> {
         className="d-inline-block"
       >
         <Jumbotron className="p-3">
-          <h3>{config.address}</h3>
-          <Image src={config.imgSrc} fluid />
-          <p>{config.description}</p>
+          <h3>{config.name}</h3>
+          <Image src={config.images[0]} fluid />
+          <p>{config.about}</p>
           <p>
-            <Button variant="primary">Learn more</Button>
+            <Button variant="primary">
+              <Link to={"/property-details/${config.id}"}>Learn more</Link>
+            </Button>
           </p>
         </Jumbotron>
       </Col>

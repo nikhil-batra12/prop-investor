@@ -3,6 +3,8 @@ var app = require("../app");
 exports.getHouses = getHouses;
 exports.getPopularHouses = getPopularHouses;
 exports.getAllProperties = getAllProperties;
+exports.registerProperty = registerProperty;
+exports.fetchPropertyDetails = fetchPropertyDetails;
 
 function getHouses(req, res) {
   const con = app.con;
@@ -19,4 +21,12 @@ function getPopularHouses(req, res) {
 
 function getAllProperties(req, res) {
   res.send(JSON.stringify(require("../responses/all-properties.json")));
+}
+
+function registerProperty(req, res) {
+  res.send(JSON.stringify(require("../responses/register-property.json")));
+}
+
+function fetchPropertyDetails(req, res) {
+  res.send(JSON.stringify(require("../responses/property-details.json")));
 }

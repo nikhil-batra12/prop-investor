@@ -5,7 +5,7 @@ import * as helpers from "utils/helpers";
 import validation from "utils/formValidity/validation";
 import FormFeedback from "components/formGenerator/formFeedback";
 import * as countriesConstant from "utils/constants/countries";
-import * as validationConstants from 'utils/formValidity/constants';
+import * as validationConstants from "utils/formValidity/constants";
 
 class SignUpForm extends React.PureComponent<
   {
@@ -24,43 +24,57 @@ class SignUpForm extends React.PureComponent<
         valid: false,
         value: "",
         rules: validationConstants.validation.firstName.rules,
-        validationMessages: [validationConstants.validation.firstName.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.firstName.rules[0].message,
+        ],
       },
       lastName: {
         valid: false,
         value: "",
         rules: validationConstants.validation.lastName.rules,
-        validationMessages: [validationConstants.validation.lastName.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.lastName.rules[0].message,
+        ],
       },
       username: {
         valid: false,
         value: "",
         rules: validationConstants.validation.username.rules,
-        validationMessages: [validationConstants.validation.username.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.username.rules[0].message,
+        ],
       },
       password: {
         valid: false,
         value: "",
         rules: validationConstants.validation.password.rules,
-        validationMessages: [validationConstants.validation.password.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.password.rules[0].message,
+        ],
       },
       city: {
         valid: false,
         value: "",
         rules: validationConstants.validation.city.rules,
-        validationMessages: [validationConstants.validation.city.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.city.rules[0].message,
+        ],
       },
       state: {
         valid: false,
         value: "",
         rules: validationConstants.validation.state.rules,
-        validationMessages: [validationConstants.validation.state.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.state.rules[0].message,
+        ],
       },
       zip: {
         valid: false,
         value: "",
         rules: validationConstants.validation.zip.rules,
-        validationMessages: [validationConstants.validation.zip.rules[0].message],
+        validationMessages: [
+          validationConstants.validation.zip.rules[0].message,
+        ],
       },
     },
   };
@@ -121,11 +135,12 @@ class SignUpForm extends React.PureComponent<
     const { isFormSubmitted, form } = this.state;
     const isPending = helpers.isPending(signupInfo.status);
     const isFailure = helpers.isFailure(signupInfo.status);
+    const isSuccess = helpers.isSuccess(signupInfo.status);
     return (
       <Form noValidate onSubmit={this.handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
-          {isFailure && (
+          {(isFailure || isSuccess) && (
             <Toast>
               <Toast.Header>
                 <img
@@ -133,8 +148,14 @@ class SignUpForm extends React.PureComponent<
                   className="rounded mr-2"
                   alt=""
                 />
-                <strong className="mr-auto">Login Failed</strong>
-                <small>11 mins ago</small>
+                {isFailure && (
+                  <strong className="mr-auto">Signup Failed</strong>
+                )}
+                {isSuccess && (
+                  <strong className="mr-auto">
+                    User Successfull registered. Pleaase Login now.
+                  </strong>
+                )}
               </Toast.Header>
               <Toast.Body>
                 {signupInfo.message || "Something went wrong"}

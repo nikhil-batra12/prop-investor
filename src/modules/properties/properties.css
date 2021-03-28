@@ -1,3 +1,7 @@
 .fixed-height {
   height: 250px !important;
 }
+
+#properties a {
+  color: white;
+}

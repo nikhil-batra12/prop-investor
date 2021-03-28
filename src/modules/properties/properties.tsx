@@ -3,6 +3,7 @@ import _ from "lodash";
 import { Button, Col, Image, Jumbotron, Container, Row } from "react-bootstrap";
 import "./properties.css";
 import RegisterNewPropertyForm from "components/registerNewProperty/registerNewProperty";
+import { Link } from "react-router-dom";
 
 class PropertiesModule extends React.PureComponent<
   {
@@ -37,11 +38,13 @@ class PropertiesModule extends React.PureComponent<
         className="d-inline-block"
       >
         <Jumbotron className="p-3">
-          <Image src={config.imgSrc} fluid className="fixed-height" />
-          <h3>{config.address}</h3>
-          <p>{config.description}</p>
+          <Image src={config.images[0]} fluid className="fixed-height" />
+          <h3>{config.name}</h3>
+          <p>{config.about}</p>
           <p>
-            <Button variant="primary">Learn more</Button>
+            <Button variant="primary">
+              <Link to={`/property-details/${config.id}`}>Learn more</Link>
+            </Button>
           </p>
         </Jumbotron>
       </Col>
@@ -63,7 +66,7 @@ class PropertiesModule extends React.PureComponent<
     const { showAddNewPropertyModal } = this.state;
     console.log(showAddNewPropertyModal);
     return (
-      <Container fluid>
+      <Container fluid id="properties">
         <Button
           className="float-sm-right mt-2"
           onClick={this.handleShowPropertyModal}

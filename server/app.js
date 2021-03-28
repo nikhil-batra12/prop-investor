@@ -43,9 +43,17 @@ function activateApp() {
 
   app.get("/popular-houses", houseController.getPopularHouses);
 
-  app.get("/all-properties", houseController.getAllProperties);
+  app.get("/properties", houseController.getAllProperties);
 
   app.post("/authenticate", authController.authenticate);
+
+  app.post("/registerProperty", houseController.registerProperty);
+
+  app.get("/user", authController.getUserDetails);
+
+  app.post("/registerUser", authController.registerUser);
+
+  app.get("/property/:id", houseController.fetchPropertyDetails);
 
   //Start server to listen on port
   app.listen(port, function () {
