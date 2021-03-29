@@ -29,7 +29,10 @@ export const reducer = (state = initialState, action) => {
 function handleGetPropertyDetailsSuccess(state, action) {
   return _.defaults(
     {
-      propertyDetails: { status: asyncActions.SUCCESS, data: action.data.data },
+      propertyDetails: {
+        status: asyncActions.SUCCESS,
+        data: action.data.data.propertyDetails,
+      },
     },
     state
   );
