@@ -16,7 +16,13 @@
       "about": "Testing out the property for greater goods",
       "mapLink": "https://www.google.co.in/maps/place/Tesla+Factory/@37.4929966,-121.9485773,18.04z/data=!4m5!3m4!1s0x808fc79c0a7a2069:0xb5789d749240836b!8m2!3d37.4934895!4d-121.9452364?hl=en",
       "numOfBedrooms": 3,
-      "numOfBathrooms": 3
+      "numOfBathrooms": 3,
+      "images": [
+        "/images/house1.jpeg",
+        "/images/house2.jpg",
+        "/images/house3.jpg",
+        "/images/house4.jpg"
+      ]
     }
   }
 }
