@@ -3,6 +3,7 @@ import _ from "lodash";
 import { Button, Col, Image, Jumbotron, Container, Row } from "react-bootstrap";
 import "./properties.css";
 import RegisterNewPropertyForm from "components/registerNewProperty/registerNewProperty";
+import PropertyTile from "components/propertyTile/propertyTile";
 import { Link } from "react-router-dom";
 
 class PropertiesModule extends React.PureComponent<
@@ -28,35 +29,12 @@ class PropertiesModule extends React.PureComponent<
     this.setState({ showAddNewPropertyModal: false });
   };
 
-  getProperty(config, index) {
-    return (
-      <Col
-        key={`house-${index}`}
-        xs={12}
-        md={6}
-        lg={4}
-        className="d-inline-block"
-      >
-        <Jumbotron className="p-3">
-          <Image src={config.images[0]} fluid className="fixed-height" />
-          <h3>{config.name}</h3>
-          <p>{config.about}</p>
-          <p>
-            <Button variant="primary">
-              <Link to={`/property-details/${config.id}`}>Learn more</Link>
-            </Button>
-          </p>
-        </Jumbotron>
-      </Col>
-    );
-  }
-
   handleGetAllProperties = () => {
     const {
       allProperties: { data },
     } = this.props;
     const properties = _.map(data, (property, index) => {
-      return this.getProperty(property, index);
+      return <PropertyTile config={property} key={`property-${index}`} />;
     });
     return properties;
   };
@@ -64,7 +42,6 @@ class PropertiesModule extends React.PureComponent<
   render() {
     const allProperties = this.handleGetAllProperties();
     const { showAddNewPropertyModal } = this.state;
-    console.log(showAddNewPropertyModal);
     return (
       <Container fluid id="properties">
         <Button

@@ -1,6 +1,7 @@
 import React from "react";
+import _ from "lodash";
 import Image from "react-bootstrap/Image";
-import HouseTile from "components/houseTile/houseTile";
+import PropertyTile from "components/propertyTile/propertyTile";
 import { Row, Col, Button } from "react-bootstrap";
 class HomeModule extends React.PureComponent<
   { popularHouses: any; onGetPopularHouses: () => void },
@@ -14,10 +15,19 @@ class HomeModule extends React.PureComponent<
     this.props.onGetPopularHouses();
   }
 
-  render() {
+  handleGetAllProperties = () => {
     const {
       popularHouses: { status, data },
     } = this.props;
+    const topHouses = _.slice(data, 0, 4);
+    const properties = _.map(topHouses, (property, index) => {
+      return <PropertyTile config={property} key={`property-${index}`} />;
+    });
+    return properties;
+  };
+
+  render() {
+    const allProperties = this.handleGetAllProperties();
     return (
       <>
         <Row className="pt-5 pb-5">
@@ -43,7 +53,8 @@ class HomeModule extends React.PureComponent<
           </Col>
         </Row>
 
-        <HouseTile houses={data} />
+        <h2 className="mb-3">Popular Properties</h2>
+        <Row className="justify-content-center">{allProperties}</Row>
       </>
     );
   }
