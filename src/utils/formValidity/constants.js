@@ -6,6 +6,8 @@ export const ONLY_ALHABETS = /^[A-Za-z]+$/;
 
 export const ZIP_CODE = /^(\d+-?)+\d+$/;
 
+export const ONLY_NUMBERS = /^[0-9]*$/;
+
 export const validation = {
   username: {
     rules: [
@@ -44,6 +46,42 @@ export const validation = {
     rules: [
       { id: "REQUIRED", message: "Zip Code is Required" },
       { id: "ZIP_CODE", message: "Only Numbers and '-' are Allowed" },
+    ],
+  },
+  name: {
+    rules: [
+      { id: "REQUIRED", message: "Name is Required" },
+      { id: "ALPHABETS", message: "Only Alphabets are Allowed" },
+    ],
+  },
+  addrss: {
+    rules: [{ id: "REQUIRED", message: "Address is Required" }],
+  },
+  landmark: {
+    rules: [{ id: "REQUIRED", message: "Landmark is Required" }],
+  },
+  mapLink: {
+    rules: [{ id: "REQUIRED", message: "Maplink is Required" }],
+  },
+  about: {
+    rules: [{ id: "REQUIRED", message: "Description is Required" }],
+  },
+  rooms: {
+    rules: [
+      { id: "REQUIRED", message: "Rooms is Required" },
+      { id: "NUMBERS", message: "Only Numeric Values are Allowed" },
+    ],
+  },
+  area: {
+    rules: [
+      { id: "REQUIRED", message: "Area is Required" },
+      { id: "NUMBERS", message: "Only Numeric Values are Allowed" },
+    ],
+  },
+  value: {
+    rules: [
+      { id: "REQUIRED", message: "Value is Required" },
+      { id: "NUMBERS", message: "Only Numeric Values are Allowed" },
     ],
   },
 };

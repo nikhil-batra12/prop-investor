@@ -9,6 +9,8 @@ const validateAlphabets = (value) => constants.ONLY_ALHABETS.test(value);
 
 const validateZipCode = (value) => constants.ZIP_CODE.test(value);
 
+const validateNumbers = (value) => constants.ONLY_NUMBERS.test(value);
+
 const pushValidationMessage = (result, message, validationMessages) => {
   if (!result) {
     validationMessages.push(message);
@@ -32,6 +34,10 @@ const validateRule = (rule, value, validationMessages) => {
       return result;
     case "ZIP_CODE":
       result = validateZipCode(value);
+      pushValidationMessage(result, rule.message, validationMessages);
+      return result;
+    case "NUMBERS":
+      result = validateNumbers(value);
       pushValidationMessage(result, rule.message, validationMessages);
       return result;
   }

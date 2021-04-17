@@ -68,6 +68,10 @@ class SignUpForm extends React.PureComponent<
           validationConstants.validation.state.rules[0].message,
         ],
       },
+      country: {
+        valid: true,
+        value: "Afghanistan",
+      },
       zip: {
         valid: false,
         value: "",
