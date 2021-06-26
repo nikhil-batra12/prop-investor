@@ -253,7 +253,7 @@ class MyProfile extends React.PureComponent<
               <Toast.Body>{msg}</Toast.Body>
             </Toast>
             <Jumbotron className="p-3">
-              <h2>My Profile</h2>
+              <h4>My Profile</h4>
               <div className="required d-flex">* Required fields</div>
               <fieldset disabled={disableForm}>
                 <Form.Row>
@@ -265,7 +265,7 @@ class MyProfile extends React.PureComponent<
                       <Form.Control
                         type="email"
                         placeholder="Enter First Name"
-                        size="lg"
+                        size="sm"
                         onChange={this.handleTextBoxChange}
                         isValid={form["firstName"].valid}
                         isInvalid={isFormSubmitted && !form["firstName"].valid}
@@ -287,7 +287,7 @@ class MyProfile extends React.PureComponent<
                       <Form.Control
                         type="email"
                         placeholder="Enter Last Name"
-                        size="lg"
+                        size="sm"
                         onChange={this.handleTextBoxChange}
                         isValid={form["lastName"].valid}
                         isInvalid={isFormSubmitted && !form["lastName"].valid}
@@ -307,7 +307,7 @@ class MyProfile extends React.PureComponent<
                   <Form.Control
                     type="email"
                     placeholder="Enter Email Address"
-                    size="lg"
+                    size="sm"
                     onChange={this.handleTextBoxChange}
                     isValid={form["username"].valid}
                     isInvalid={isFormSubmitted && !form["username"].valid}
@@ -323,7 +323,7 @@ class MyProfile extends React.PureComponent<
               <Form.Control
                 type="password"
                 placeholder="Enter Password"
-                size="lg"
+                size="sm"
                 onChange={this.handleTextBoxChange}
                 isValid={form["password"].valid}
                 isInvalid={isFormSubmitted && !form["password"].valid}
@@ -341,7 +341,7 @@ class MyProfile extends React.PureComponent<
                   <Form.Control
                     type="email"
                     placeholder="Enter City Name"
-                    size="lg"
+                    size="sm"
                     onChange={this.handleTextBoxChange}
                     isValid={form["city"].valid}
                     isInvalid={isFormSubmitted && !form["city"].valid}
@@ -358,7 +358,7 @@ class MyProfile extends React.PureComponent<
                   </Form.Label>
                   <Form.Control
                     as="select"
-                    size="lg"
+                    size="sm"
                     onChange={this.handleCountryChange}
                     defaultValue={userDetails["country"]}
                   >
@@ -375,7 +375,7 @@ class MyProfile extends React.PureComponent<
                       </Form.Label>
                       <Form.Control
                         as="select"
-                        size="lg"
+                        size="sm"
                         onChange={this.handleCountryChange}
                         defaultValue={userDetails["state"]}
                       >
@@ -400,7 +400,7 @@ class MyProfile extends React.PureComponent<
                       <Form.Control
                         type="text"
                         placeholder="Enter Zip Code"
-                        size="lg"
+                        size="sm"
                         onChange={this.handleTextBoxChange}
                         isValid={form["zip"].valid}
                         isInvalid={isFormSubmitted && !form["zip"].valid}
@@ -418,7 +418,7 @@ class MyProfile extends React.PureComponent<
                   <Form.Control
                     type="text"
                     placeholder="Enter Token Address"
-                    size="lg"
+                    size="sm"
                     onChange={this.handleTextBoxChange}
                     // isValid={form["tokAddress"].valid}
                     // isInvalid={isFormSubmitted && !form["tokAddress"].valid}
@@ -434,7 +434,7 @@ class MyProfile extends React.PureComponent<
                 <Button
                   variant="light"
                   type="submit"
-                  size="lg"
+                  size="sm"
                   className="mr-2"
                   onClick={this.handleEditTap}
                 >
@@ -445,7 +445,7 @@ class MyProfile extends React.PureComponent<
                 <Button
                   variant="light"
                   type="submit"
-                  size="lg"
+                  size="sm"
                   className="mr-2"
                   onClick={this.handleCancelTap}
                 >
@@ -455,7 +455,7 @@ class MyProfile extends React.PureComponent<
               <Button
                 variant="primary"
                 type="submit"
-                size="lg"
+                size="sm"
                 disabled={isPending}
               >
                 Save Changes
@@ -474,7 +474,7 @@ class MyProfile extends React.PureComponent<
         </Col>
         <Col xs={12} md={4}>
           <Jumbotron className="p-3">
-            <h2>KYC Details</h2>
+            <h4>KYC Details</h4>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>Kyc Verified</InputGroup.Text>
@@ -502,7 +502,7 @@ class MyProfile extends React.PureComponent<
             ) : null}
           </Jumbotron>
           <Jumbotron className="p-3">
-            <h2>Account Details</h2>
+            <h4>Account Details</h4>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
                 <InputGroup.Text>Email Verified</InputGroup.Text>
@@ -536,7 +536,7 @@ class MyProfile extends React.PureComponent<
             ) : null}
           </Jumbotron>
           <Jumbotron className="p-3">
-            <h2>Manage Password</h2>
+            <h4>Manage Password</h4>
             <Button variant="primary" className="mr-3 mb-3">
               Change Password
             </Button>

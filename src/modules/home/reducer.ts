@@ -28,7 +28,7 @@ function handleGetPopularHousesSuccess(state, action) {
     {
       popularHouses: {
         status: asyncActions.SUCCESS,
-        data: action.response.properties,
+        data: action.response,
       },
     },
     state

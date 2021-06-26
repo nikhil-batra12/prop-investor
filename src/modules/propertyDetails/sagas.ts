@@ -11,7 +11,7 @@ export function* fetchPropertyDetails(data) {
       url: constants.PROPERTY_DETAILS_URL.endpoint,
       interpolateParams: { propertyId: data.propertyId },
     });
-    yield put(actions.fetchPropertyDetailsSuccess(response));
+    yield put(actions.fetchPropertyDetailsSuccess(response?.data));
   } catch (e) {
     yield put(actions.fetchPropertyDetailsFailure(e));
   }

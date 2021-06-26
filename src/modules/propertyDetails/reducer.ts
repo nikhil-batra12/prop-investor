@@ -31,7 +31,7 @@ function handleGetPropertyDetailsSuccess(state, action) {
     {
       propertyDetails: {
         status: asyncActions.SUCCESS,
-        data: action.data.data.propertyDetails,
+        data: action.data[0],
       },
     },
     state
