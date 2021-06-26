@@ -1,15 +1,16 @@
 import React from "react";
 import _ from "lodash";
-import { Button, Col, Image, Jumbotron, Container, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import "./properties.css";
 import RegisterNewPropertyForm from "components/registerNewProperty/registerNewProperty";
 import PropertyTile from "components/propertyTile/propertyTile";
-import { Link } from "react-router-dom";
 
 class PropertiesModule extends React.PureComponent<
   {
     allProperties: any;
+    registerPropertyStatus: any;
     onGetAllProperties: () => void;
+    onRegisterProperty: (obj: any) => void;
   },
   { showAddNewPropertyModal: boolean }
 > {
@@ -42,6 +43,7 @@ class PropertiesModule extends React.PureComponent<
   render() {
     const allProperties = this.handleGetAllProperties();
     const { showAddNewPropertyModal } = this.state;
+    const { onRegisterProperty, registerPropertyStatus } = this.props;
     return (
       <Container fluid id="properties">
         <Button
@@ -51,9 +53,13 @@ class PropertiesModule extends React.PureComponent<
           Add New Property
         </Button>
         <h2 className="mb-3">All Properties</h2>
-        <Row>{allProperties}</Row>
+        <Row className="justify-content-center">{allProperties}</Row>
         {showAddNewPropertyModal && (
-          <RegisterNewPropertyForm onClose={this.handleHidePropertyModal} />
+          <RegisterNewPropertyForm
+            onClose={this.handleHidePropertyModal}
+            onRegisterProperty={onRegisterProperty}
+            registerPropertyStatus={registerPropertyStatus}
+          />
         )}
       </Container>
     );

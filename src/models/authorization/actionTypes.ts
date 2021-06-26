@@ -17,3 +17,8 @@ export const FETCH_USER: string = "user/signup";
 export const FETCH_USER_SUCCESS: string = "user/fetch-user-success";
 export const FETCH_USER_FAILURE: string = "user/fetch-user-failure";
 export const FETCH_USER_PENDING: string = "user/fetch-user-pending";
+
+export const UPDATE_USER: string = "user/update-user";
+export const UPDATE_USER_SUCCESS: string = "user/update-user-success";
+export const UPDATE_USER_FAILURE: string = "user/update-user-failure";
+export const UPDATE_USER_PENDING: string = "user/update-user-pending";

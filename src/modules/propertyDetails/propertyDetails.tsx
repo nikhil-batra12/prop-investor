@@ -1,8 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import Image from "react-bootstrap/Image";
-import HouseTile from "components/houseTile/houseTile";
-import { Row, Col, Button, Table } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 import { withRouter } from "react-router";
 
 class PropertyDetails extends React.PureComponent<
@@ -82,6 +81,12 @@ class PropertyDetails extends React.PureComponent<
                   );
                 }
               })}
+              <h4 className="pt-3">Map Location</h4>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1582.8162758923565!2d-121.9485773!3d37.4929966!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fc654f67bbf49%3A0x2d4f6c443c47fb25!2sTesla!5e0!3m2!1sen!2suk!4v1622986935125!5m2!1sen!2suk"
+                width="600"
+                height="250"
+              ></iframe>
             </Col>
           )}
           <Col xs={12} md={6}>
@@ -91,7 +96,7 @@ class PropertyDetails extends React.PureComponent<
                   <Table striped bordered hover>
                     <thead>
                       <tr>
-                        <th colSpan={2}>Locaton Highlights</th>
+                        <th colSpan={2}>Location Highlights</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -104,11 +109,11 @@ class PropertyDetails extends React.PureComponent<
                         <td>{data.about}</td>
                       </tr>
                       <tr>
-                        <td>Adress Line 1</td>
+                        <td>Address Line 1</td>
                         <td>{data.address_1}</td>
                       </tr>
                       <tr>
-                        <td>Adress Line 2</td>
+                        <td>Address Line 2</td>
                         <td>{data.address_2}</td>
                       </tr>
                       <tr>
@@ -137,7 +142,7 @@ class PropertyDetails extends React.PureComponent<
                     </thead>
                     <tbody>
                       <tr>
-                        <td>Value</td>
+                        <td>Value(USD)</td>
                         <td>{data.value}</td>
                       </tr>
                       <tr>
@@ -151,10 +156,6 @@ class PropertyDetails extends React.PureComponent<
                       <tr>
                         <td>Area(Square Feet)</td>
                         <td>{data.squareFeet}</td>
-                      </tr>
-                      <tr>
-                        <td>Value</td>
-                        <td>{data.value}</td>
                       </tr>
                     </tbody>
                   </Table>

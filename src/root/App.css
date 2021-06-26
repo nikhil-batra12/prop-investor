@@ -31,9 +31,30 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(10px)
+    transform: translateY(10px);
   }
   100% {
-    transform: translateY(0px)
+    transform: translateY(0px);
   }
+}
+
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+.jumbotron {
+  background-color: lightgrey !important;
+}
+
+.kyc-fail {
+  background-color: palevioletred !important;
+  color: white !important;
+  font-weight: bolder !important;
+}
+
+.kyc-pass {
+  background-color: green !important;
+  color: white !important;
+  font-weight: bolder !important;
 }

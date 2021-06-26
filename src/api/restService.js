@@ -6,9 +6,6 @@ const defaultGetConfig = {
   url: null,
   interpolateParams: {},
   queryParams: {},
-  headers: {
-    Authorization: helpers.getToken(),
-  },
 };
 
 const defaultPostConfig = {
@@ -16,10 +13,12 @@ const defaultPostConfig = {
   interpolateParams: {},
   body: {},
   queryParams: {},
-  headers: {
-    Authorization: helpers.getToken(),
-  },
 };
+
+const appendToken = (config) =>
+  (config.headers = {
+    Authorization: helpers.getToken(),
+  });
 
 const interpolateUrl = (url, interpolateParams) => {
   if (_.isEmpty(interpolateParams)) {
@@ -32,6 +31,7 @@ const interpolateUrl = (url, interpolateParams) => {
 };
 
 export const getRequest = (config) => {
+  appendToken(defaultGetConfig);
   config = _.merge({}, defaultGetConfig, config);
   let { url, queryParams, interpolateParams, headers } = config;
   console.log(config);
@@ -48,6 +48,7 @@ export const getRequest = (config) => {
 };
 
 export const postRequest = (config) => {
+  appendToken(defaultPostConfig);
   config = _.merge({}, defaultPostConfig, config);
   let { url, queryParams, interpolateParams, body, headers } = config;
   if (!url) {

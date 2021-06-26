@@ -3,6 +3,7 @@ import _ from "lodash";
 import Image from "react-bootstrap/Image";
 import PropertyTile from "components/propertyTile/propertyTile";
 import { Row, Col, Button } from "react-bootstrap";
+import "./home.css";
 class HomeModule extends React.PureComponent<
   { popularHouses: any; onGetPopularHouses: () => void },
   { houses: any }
@@ -30,7 +31,7 @@ class HomeModule extends React.PureComponent<
     const allProperties = this.handleGetAllProperties();
     return (
       <>
-        <Row className="pt-5 pb-5">
+        <Row className="pt-5 pb-5" id="properties">
           <Col
             xs={12}
             lg={{ span: 5, offset: 1 }}

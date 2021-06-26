@@ -54,7 +54,7 @@ export const validation = {
       { id: "ALPHABETS", message: "Only Alphabets are Allowed" },
     ],
   },
-  addrss: {
+  address: {
     rules: [{ id: "REQUIRED", message: "Address is Required" }],
   },
   landmark: {
@@ -83,5 +83,12 @@ export const validation = {
       { id: "REQUIRED", message: "Value is Required" },
       { id: "NUMBERS", message: "Only Numeric Values are Allowed" },
     ],
+  },
+  images: {
+    rules: [{ id: "REQUIRED", message: "Images are Required" }],
+  },
+  tokAddress: {
+    // rules: [{ id: "REQUIRED", message: "Token Address is Required" }],
+    rules: [],
   },
 };

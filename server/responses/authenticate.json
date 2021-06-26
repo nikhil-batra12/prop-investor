@@ -1,19 +1,18 @@
 {
   "status": 200,
-  "data": {
-    "user": {
-      "id": null,
-      "username": "mj@abc.com",
-      "firtName": "Mayank",
-      "lastName": "Jain",
-      "email": "mj@abc.com",
-      "pass": null,
-      "city": "Dilli",
-      "country": "hindustan",
-      "zip": "110050",
-      "phone": 9016672510,
-      "emailVerificationStatus": "UNVERIFIED",
-      "kycStatus": "UNVERIFIED"
-    }
+  "jwt": "asdhagsdjhsagdjgasjd",
+  "user": {
+    "id": null,
+    "username": "mj@abc.com",
+    "firstName": "Mayank",
+    "lastName": "Jain",
+    "email": "mj@abc.com",
+    "pass": null,
+    "city": "Dilli",
+    "country": "hindustan",
+    "zip": "110050",
+    "phone": 9016672510,
+    "emailVerificationStatus": "UNVERIFIED",
+    "kycStatus": "UNVERIFIED"
   }
 }

@@ -1,1 +1,1 @@
-export const AUTORIZATION_MODEL: string = "authModel";
+export const AUTHORIZATION_MODEL: string = "authModel";

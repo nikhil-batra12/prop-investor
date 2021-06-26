@@ -3,6 +3,10 @@
   font-size: 20px;
 }
 
+.dropdown-item a {
+  color: black;
+}
+
 .light-gray-color {
   color: lightgray;
 }

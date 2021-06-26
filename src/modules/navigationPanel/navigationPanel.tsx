@@ -8,6 +8,15 @@ import LoginSignupForm from "components/loginSignupForm/loginSignupForm";
 import Sidebar from "components/sidebar/sidebar";
 import { Link } from "react-router-dom";
 import "./navigationPanel.css";
+import {
+  PersonCircle,
+  Power,
+  Tools,
+  Wallet,
+  HouseFill,
+  Building,
+  CurrencyBitcoin,
+} from "react-bootstrap-icons";
 
 const NavigationPanel = (props) => {
   const {
@@ -48,15 +57,24 @@ const NavigationPanel = (props) => {
     <>
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Navbar.Brand>
-          <Link to="/">BlockMyPlot</Link>
+          <Link to="/">
+            <CurrencyBitcoin size={35} />
+            lockMyPlot
+          </Link>
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link>
-              <Link to="/">Home</Link>
+              <Link to="/">
+                <HouseFill className="mr-1" size={20} />
+                Home
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <Link to="/properties">Properties</Link>
+              <Link to="/properties">
+                <Building className="mr-1" />
+                Properties
+              </Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -68,14 +86,25 @@ const NavigationPanel = (props) => {
                 id="dropdown-basic"
                 className="border-0 bg-transparent light-gray-color"
               >
+                <PersonCircle size={25} className="mr-3" />
                 Welcome, {userDetails.firstName} {userDetails.lastName}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item>
-                  <Link to="/my-profile">My Profile</Link>
+                  <Link to="/my-profile">
+                    <Tools className="mr-2" />
+                    My Profile
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link to="/my-investments">
+                    <Wallet className="mr-2" />
+                    My Investments
+                  </Link>
                 </Dropdown.Item>
                 <Dropdown.Item onClick={handleLogoutClick}>
+                  <Power className="mr-2" />
                   Sign Out
                 </Dropdown.Item>
               </Dropdown.Menu>

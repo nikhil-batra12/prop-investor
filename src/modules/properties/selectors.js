@@ -6,5 +6,8 @@ import * as constants from "./constants";
 const getState = (state) =>
   _.get(state, [moduleNames.PROPERTIES_MODULE], reducer.initialState);
 
-export const getAllProperies = (state) =>
+export const getAllProperties = (state) =>
   _.get(getState(state), "allProperties", constants.EMPTY_OBJECT);
+
+export const getRegisterPropertyStatus = (state) =>
+  _.get(getState(state), "registerProperty", constants.EMPTY_OBJECT);

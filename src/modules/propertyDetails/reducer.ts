@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import _ from "lodash";
 import * as moduleNames from "root/moduleNames";
-import * as asyncActions from "utils/ayncActions";
+import * as asyncActions from "utils/asyncActions";
 
 export const initialState = {
   propertyDetails: { status: asyncActions.NONE, data: {} },

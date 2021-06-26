@@ -9,10 +9,10 @@
       "email": "mj@abc.com",
       "pass": null,
       "city": "Dilli",
-      "country": "hindustan",
+      "country": "India",
       "zip": "110050",
       "phone": 9016672510,
-      "emailVerificationStatus": "UNVERIFIED",
+      "emailVerificationStatus": "VERIFIED",
       "kycStatus": "UNVERIFIED"
     }
   }

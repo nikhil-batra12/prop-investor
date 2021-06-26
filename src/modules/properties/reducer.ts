@@ -1,10 +1,11 @@
 import * as actionTypes from "./actionTypes";
 import _ from "lodash";
 import * as moduleNames from "root/moduleNames";
-import * as asyncActions from "utils/ayncActions";
+import * as asyncActions from "utils/asyncActions";
 
 export const initialState = {
   allProperties: { status: asyncActions.NONE, data: [] },
+  registerProperty: { status: asyncActions.NONE },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -17,6 +18,15 @@ export const reducer = (state = initialState, action) => {
 
     case actionTypes.GET_ALL_PROPERTIES_PENDING:
       return handleGetAllPropertiesPending(state);
+
+      case actionTypes.REGISTER_PROPERTY_SUCCESS:
+        return handleRegisterPropertySuccess(state, action);
+  
+      case actionTypes.REGISTER_PROPERTY_FAILURE:
+        return handleRegisterPropertyFailure(state, action);
+  
+      case actionTypes.REGISTER_PROPERTY_PENDING:
+        return handleRegisterPropertyPending(state);
 
     default:
       return state;
@@ -44,6 +54,33 @@ function handleGetAllPropertiesFailure(state, action) {
 
 function handleGetAllPropertiesPending(state) {
   return _.defaults({ allProperties: { status: asyncActions.PENDING } }, state);
+}
+
+function handleRegisterPropertySuccess(state, action) {
+  return _.defaults(
+    {
+      registerProperty: { status: asyncActions.SUCCESS },
+    },
+    state
+  );
+}
+
+function handleRegisterPropertyFailure(state, action) {
+  return _.defaults(
+    {
+      registerProperty: { status: asyncActions.FAILURE, message: action.data },
+    },
+    state
+  );
+}
+
+function handleRegisterPropertyPending(state) {
+  return _.defaults(
+    {
+      registerProperty: { status: asyncActions.PENDING },
+    },
+    state
+  );
 }
 
 export default { [moduleNames.PROPERTIES_MODULE]: reducer };

@@ -15,3 +15,7 @@ export const LOGOUT = {
 export const FETCH_USER = {
   endpoint: "/user",
 };
+
+export const UPDATE_USER = {
+  endpoint: "/updateUser",
+};

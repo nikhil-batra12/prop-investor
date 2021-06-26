@@ -5,6 +5,7 @@ import * as helpers from "utils/helpers";
 import validation from "utils/formValidity/validation";
 import FormFeedback from "components/formGenerator/formFeedback";
 import * as countriesConstant from "utils/constants/countries";
+import * as statesConstant from "utils/constants/states";
 import * as validationConstants from "utils/formValidity/constants";
 
 class SignUpForm extends React.PureComponent<
@@ -79,6 +80,14 @@ class SignUpForm extends React.PureComponent<
         validationMessages: [
           validationConstants.validation.zip.rules[0].message,
         ],
+      },
+      tokAddress: {
+        valid: false,
+        value: "",
+        // rules: validationConstants.validation.tokAddress.rules,
+        // validationMessages: [
+        //   validationConstants.validation.tokAddress.rules[0].message,
+        // ],
       },
     },
   };
@@ -157,7 +166,7 @@ class SignUpForm extends React.PureComponent<
                 )}
                 {isSuccess && (
                   <strong className="mr-auto">
-                    User Successfull registered. Pleaase Login now.
+                    User Successfully registered. Please Login now.
                   </strong>
                 )}
               </Toast.Header>
@@ -168,10 +177,13 @@ class SignUpForm extends React.PureComponent<
           )}
         </Modal.Header>
         <Modal.Body>
+          <div className="required d-flex">* Required fields</div>
           <Form.Row>
             <Col>
               <Form.Group controlId="firstName" key="firstName">
-                <Form.Label>Enter First Name</Form.Label>
+                <Form.Label>
+                  Enter First Name<span className="required">*</span>
+                </Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter First Name"
@@ -189,7 +201,9 @@ class SignUpForm extends React.PureComponent<
             </Col>
             <Col>
               <Form.Group controlId="lastName" key="lastName">
-                <Form.Label>Enter Last Name</Form.Label>
+                <Form.Label>
+                  Enter Last Name<span className="required">*</span>
+                </Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter Last Name"
@@ -207,7 +221,9 @@ class SignUpForm extends React.PureComponent<
             </Col>
           </Form.Row>
           <Form.Group controlId="username" key="username">
-            <Form.Label>Enter Email Address</Form.Label>
+            <Form.Label>
+              Enter Email Address<span className="required">*</span>
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email Address"
@@ -223,7 +239,9 @@ class SignUpForm extends React.PureComponent<
             />
           </Form.Group>
           <Form.Group controlId="password" key="password">
-            <Form.Label>Enter Password</Form.Label>
+            <Form.Label>
+              Enter Password<span className="required">*</span>
+            </Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter Password"
@@ -239,7 +257,9 @@ class SignUpForm extends React.PureComponent<
             />
           </Form.Group>
           <Form.Group controlId="city" key="city">
-            <Form.Label>Enter City Name</Form.Label>
+            <Form.Label>
+              Enter City Name<span className="required">*</span>
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter City Name"
@@ -254,46 +274,10 @@ class SignUpForm extends React.PureComponent<
               validationMessages={form["city"].validationMessages}
             />
           </Form.Group>
-          <Form.Row>
-            <Col>
-              <Form.Group controlId="state" key="state">
-                <Form.Label>Enter State Name</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter State Name"
-                  size="lg"
-                  onChange={this.handleTextBoxChange}
-                  isValid={form["state"].valid}
-                  isInvalid={isFormSubmitted && !form["state"].valid}
-                  value={form["state"].value}
-                />
-                <FormFeedback
-                  valid={form["state"].valid}
-                  validationMessages={form["state"].validationMessages}
-                />
-              </Form.Group>
-            </Col>
-            <Col>
-              <Form.Group controlId="zip" key="zip">
-                <Form.Label>Enter Zip Code</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter Zip Code"
-                  size="lg"
-                  onChange={this.handleTextBoxChange}
-                  isValid={form["zip"].valid}
-                  isInvalid={isFormSubmitted && !form["zip"].valid}
-                  value={form["zip"].value}
-                />
-                <FormFeedback
-                  valid={form["zip"].valid}
-                  validationMessages={form["zip"].validationMessages}
-                />
-              </Form.Group>
-            </Col>
-          </Form.Row>
           <Form.Group controlId="country">
-            <Form.Label>Select County</Form.Label>
+            <Form.Label>
+              Select County<span className="required">*</span>
+            </Form.Label>
             <Form.Control
               as="select"
               size="lg"
@@ -303,6 +287,64 @@ class SignUpForm extends React.PureComponent<
                 <option key={country.code}>{country.name}</option>
               ))}
             </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="state" key="state">
+            <Form.Label>
+              Select State<span className="required">*</span>
+            </Form.Label>
+            <Form.Control
+              as="select"
+              size="lg"
+              onChange={this.handleCountryChange}
+            >
+              {_.map(
+                statesConstant.statesList[form["country"].value],
+                (state) => (
+                  <option key={state.id}>{state.name}</option>
+                )
+              )}
+            </Form.Control>
+            <FormFeedback
+              valid={form["state"].valid}
+              validationMessages={form["state"].validationMessages}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="zip" key="zip">
+            <Form.Label>
+              Enter Zip Code<span className="required">*</span>
+            </Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter Zip Code"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["zip"].valid}
+              isInvalid={isFormSubmitted && !form["zip"].valid}
+              value={form["zip"].value}
+            />
+            <FormFeedback
+              valid={form["zip"].valid}
+              validationMessages={form["zip"].validationMessages}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="tokAddress" key="tokAddress">
+            <Form.Label>Enter Token Address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter Token Address"
+              size="lg"
+              onChange={this.handleTextBoxChange}
+              isValid={form["tokAddress"].valid}
+              isInvalid={isFormSubmitted && !form["tokAddress"].valid}
+              value={form["tokAddress"].value}
+            />
+            {/* <FormFeedback
+              valid={form["tokAddress"].valid}
+              validationMessages={form["tokAddress"].validationMessages}
+            /> */}
           </Form.Group>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">

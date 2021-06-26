@@ -1,14 +1,19 @@
 import React from "react";
 import _ from "lodash";
-import { Button, Form, Modal } from "react-bootstrap";
-import FormGenerator from "components/formGenerator/formGenerator";
-import * as constants from "./constants";
+import { Button, Form, Modal, Col } from "react-bootstrap";
+import FormFeedback from "components/formGenerator/formFeedback";
+import validation from "utils/formValidity/validation";
+import bsCustomFileInput from "bs-custom-file-input";
 import * as countriesConstant from "utils/constants/countries";
 import * as validationConstants from "utils/formValidity/constants";
 
 class RegisterNewPropertyForm extends React.PureComponent<
-  { onClose: () => void },
-  { isFormSubmitted: boolean; isFormValid: boolean; generatedPostObj: any }
+  {
+    onClose: () => void;
+    onRegisterProperty: (obj: any) => void;
+    registerPropertyStatus: any;
+  },
+  { isFormSubmitted: boolean; isFormValid: boolean; form: any }
 > {
   state = {
     isFormSubmitted: false,
@@ -25,7 +30,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
       address_1: {
         valid: false,
         value: "",
-        rules: validationConstants.validation.address_1.rules,
+        rules: validationConstants.validation.address.rules,
         validationMessages: [
           validationConstants.validation.address.rules[0].message,
         ],
@@ -33,7 +38,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
       address_2: {
         valid: false,
         value: "",
-        rules: validationConstants.validation.address_2.rules,
+        rules: validationConstants.validation.address.rules,
         validationMessages: [
           validationConstants.validation.address.rules[0].message,
         ],
@@ -114,39 +119,87 @@ class RegisterNewPropertyForm extends React.PureComponent<
           validationConstants.validation.value.rules[0].message,
         ],
       },
+      images: {
+        valid: false,
+        value: "",
+        rules: validationConstants.validation.images.rules,
+        validationMessages: [
+          validationConstants.validation.images.rules[0].message,
+        ],
+      },
     },
   };
 
-  onFailed = (res) => console.log(res);
+  componentDidMount() {
+    bsCustomFileInput.init();
+  }
 
   handleSubmit = (event) => {
     const { isFormValid } = this.state;
+    const { onRegisterProperty } = this.props;
+    event.preventDefault();
+    event.stopPropagation();
+    onRegisterProperty(this.generateFormPostObj());
     if (isFormValid) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      event.preventDefault();
-      event.stopPropagation();
+      const postObj = this.generateFormPostObj();
+      onRegisterProperty(postObj);
     }
-    console.log(this.state.generatedPostObj);
     this.setState({ isFormSubmitted: true });
   };
 
-  generateFormPostObj = (formObj) => {
-    const postObj = {};
-    _.map(formObj.fields, (field) => (postObj[field.controlId] = field.value));
-    return postObj;
+  generateFormPostObj = () => {
+    const formData: any = new FormData();
+    _.forOwn(this.state.form, (value, key) =>
+      formData.append(key, value.value)
+    );
+    for (var value of formData.values()) {
+      console.log(value);
+    }
+    return formData;
   };
 
-  updateForm = (formObj) => {
-    this.setState({ generatedPostObj: this.generateFormPostObj(formObj) });
-    this.setState({ isFormValid: formObj.formValid });
+  setFormValidity = () => {
+    const { form } = this.state;
+    this.setState({ isFormValid: validation.checkFormValidity(form) });
+  };
+
+  handleChange = (event) => {
+    const files = event.target.files[0];
+
+    this.updateForm("images", files);
+  };
+
+  updateForm = (id, value) => {
+    const { form } = this.state;
+    const updatedForm = { ...form };
+    const updatedFormField = { ...updatedForm[id] };
+    updatedFormField.value = value;
+
+    const { valid, validationMessages } = validation.checkFieldValidity(
+      updatedFormField.rules,
+      value
+    );
+    updatedFormField.valid = valid;
+    updatedFormField.validationMessages =
+      validationMessages || updatedFormField?.rules[0]?.message;
+    updatedForm[id] = updatedFormField;
+    this.setState({ form: updatedForm }, () => this.setFormValidity());
+  };
+
+  handleTextBoxChange = (event) => {
+    const { value, id } = event.target;
+    this.updateForm(id, value);
+  };
+
+  handleCountryChange = (event) => {
+    const { id, value } = event.target;
+    console.log(id, value);
+    this.updateForm(id, value);
   };
 
   render() {
-    const { isFormSubmitted } = this.state;
+    const { isFormSubmitted, form } = this.state;
     const { onClose } = this.props;
-    console.log("rendered");
     return (
       <Modal show onHide={onClose}>
         <Form noValidate onSubmit={this.handleSubmit}>
@@ -154,10 +207,255 @@ class RegisterNewPropertyForm extends React.PureComponent<
             <Modal.Title>Register New</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <FormGenerator
-              form={constants.loginFormConfig}
-              isFormSubmitted={isFormSubmitted}
-              onUpdateForm={this.updateForm}
+            <Form.Group controlId="name" key="name">
+              <Form.Label>
+                Enter Property Name<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["name"].valid}
+                isInvalid={isFormSubmitted && !form["name"].valid}
+                value={form["name"].value}
+              />
+              <FormFeedback
+                valid={form["name"].valid}
+                validationMessages={form["name"].validationMessages}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="address_1" key="address_1">
+              <Form.Label>
+                Enter Address Line 1<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Address Line 1"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["address_1"].valid}
+                isInvalid={isFormSubmitted && !form["address_1"].valid}
+                value={form["address_1"].value}
+              />
+              <FormFeedback
+                valid={form["address_1"].valid}
+                validationMessages={form["address_1"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="address_2" key="address_2">
+              <Form.Label>
+                Enter Address Line 2<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Address Line 2"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["address_2"].valid}
+                isInvalid={isFormSubmitted && !form["address_2"].valid}
+                value={form["address_2"].value}
+              />
+              <FormFeedback
+                valid={form["address_2"].valid}
+                validationMessages={form["address_2"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="city" key="city">
+              <Form.Label>
+                Enter City Name<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter City Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["city"].valid}
+                isInvalid={isFormSubmitted && !form["city"].valid}
+                value={form["city"].value}
+              />
+              <FormFeedback
+                valid={form["city"].valid}
+                validationMessages={form["city"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Row>
+              <Col>
+                <Form.Group controlId="state" key="state">
+                  <Form.Label>
+                    Enter State Name<span className="required">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter State Name"
+                    size="lg"
+                    onChange={this.handleTextBoxChange}
+                    isValid={form["state"].valid}
+                    isInvalid={isFormSubmitted && !form["state"].valid}
+                    value={form["state"].value}
+                  />
+                  <FormFeedback
+                    valid={form["state"].valid}
+                    validationMessages={form["state"].validationMessages}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group controlId="zip" key="zip">
+                  <Form.Label>
+                    Enter Zip Code<span className="required">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter Zip Code"
+                    size="lg"
+                    onChange={this.handleTextBoxChange}
+                    isValid={form["zip"].valid}
+                    isInvalid={isFormSubmitted && !form["zip"].valid}
+                    value={form["zip"].value}
+                  />
+                  <FormFeedback
+                    valid={form["zip"].valid}
+                    validationMessages={form["zip"].validationMessages}
+                  />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+            <Form.Group controlId="landmark" key="landmark">
+              <Form.Label>
+                Enter Landmark<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Landmark Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["landmark"].valid}
+                isInvalid={isFormSubmitted && !form["landmark"].valid}
+                value={form["landmark"].value}
+              />
+              <FormFeedback
+                valid={form["landmark"].valid}
+                validationMessages={form["landmark"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="country">
+              <Form.Label>
+                Select County<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                as="select"
+                size="lg"
+                onChange={this.handleCountryChange}
+              >
+                {_.map(countriesConstant.countriesList, (country) => (
+                  <option key={country.code}>{country.name}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="mapLink" key="mapLink">
+              <Form.Label>
+                Enter mapLink<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Map Link"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["mapLink"].valid}
+                isInvalid={isFormSubmitted && !form["mapLink"].valid}
+                value={form["mapLink"].value}
+              />
+              <FormFeedback
+                valid={form["mapLink"].valid}
+                validationMessages={form["mapLink"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="numberOfBathrooms" key="numberOfBathrooms">
+              <Form.Label>
+                Enter Number Of Bathrooms<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter numberOfBathrooms Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["numberOfBathrooms"].valid}
+                isInvalid={isFormSubmitted && !form["numberOfBathrooms"].valid}
+                value={form["numberOfBathrooms"].value}
+              />
+              <FormFeedback
+                valid={form["numberOfBathrooms"].valid}
+                validationMessages={
+                  form["numberOfBathrooms"].validationMessages
+                }
+              />
+            </Form.Group>
+            <Form.Group controlId="numberOfBedrooms" key="numberOfBedrooms">
+              <Form.Label>
+                Enter Number Of Bedrooms<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter numberOfBedrooms Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["numberOfBedrooms"].valid}
+                isInvalid={isFormSubmitted && !form["numberOfBedrooms"].valid}
+                value={form["numberOfBedrooms"].value}
+              />
+              <FormFeedback
+                valid={form["numberOfBedrooms"].valid}
+                validationMessages={form["numberOfBedrooms"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="squareFeet" key="squareFeet">
+              <Form.Label>
+                Enter Area(square Feet)<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter squareFeet Name"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["squareFeet"].valid}
+                isInvalid={isFormSubmitted && !form["squareFeet"].valid}
+                value={form["squareFeet"].value}
+              />
+              <FormFeedback
+                valid={form["squareFeet"].valid}
+                validationMessages={form["squareFeet"].validationMessages}
+              />
+            </Form.Group>
+            <Form.Group controlId="value" key="value">
+              <Form.Label>
+                Enter value(USD)<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Property value"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["value"].valid}
+                isInvalid={isFormSubmitted && !form["value"].valid}
+                value={form["value"].value}
+              />
+              <FormFeedback
+                valid={form["value"].valid}
+                validationMessages={form["value"].validationMessages}
+              />
+            </Form.Group>
+            <Form.File
+              className="position-relative"
+              required
+              name="file"
+              label={`Property Image`}
+              onChange={this.handleChange}
+              isValid={form["images"].valid}
+              multiple
+              id="images"
+              feedbackTooltip
             />
           </Modal.Body>
           <Modal.Footer className="justify-content-center">

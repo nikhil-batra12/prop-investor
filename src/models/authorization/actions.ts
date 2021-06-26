@@ -97,3 +97,29 @@ export function fetchUserPending() {
     type: actionTypes.FETCH_USER_PENDING,
   };
 }
+export function updateUser(data) {
+  return {
+    type: actionTypes.UPDATE_USER,
+    data
+  };
+}
+
+export function updateUserSuccess(response, userDetails) {
+  return {
+    type: actionTypes.UPDATE_USER_SUCCESS,
+    response,
+    userDetails
+  };
+}
+
+export function updateUserFailure(data) {
+  return {
+    type: actionTypes.UPDATE_USER_FAILURE,
+    data,
+  };
+}
+export function updateUserPending() {
+  return {
+    type: actionTypes.UPDATE_USER_PENDING,
+  };
+}

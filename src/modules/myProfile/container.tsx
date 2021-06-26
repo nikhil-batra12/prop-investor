@@ -1,20 +1,20 @@
 import { connect } from "react-redux";
 import * as selectors from "models/authorization/selectors";
-import * as actions from "./actions";
+import * as actions from "models/authorization/actions";
 import MyProfile from "./myProfile";
 
 const mapStateToProps = (state) => {
   const userDetails = selectors.getUserDetails(state);
-  const fetchUserStatus = selectors.getFetchUserStatus(state);
+  const updateUserStatus = selectors.getUpdateUserStatus(state);
 
   return {
     userDetails,
-    fetchUserStatus,
+    updateUserStatus,
   };
 };
 
 const mapDispatchToProps = {
-  onUpdateUser: actions.fetchAllProperties,
+  onUpdateUser: actions.updateUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

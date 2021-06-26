@@ -12,7 +12,7 @@ export function* initiateLogin(action) {
       url: constants.LOGIN.endpoint,
       body: action.data,
     });
-    yield put(actions.loginSuccess(response.data));
+    yield put(actions.loginSuccess(response));
   } catch (e) {
     yield put(actions.loginFailure(e));
   }
@@ -28,7 +28,7 @@ export function* initiateSignUp(action) {
     });
     yield put(actions.signupSuccess(response));
   } catch (e) {
-    yield put(actions.signupSuccess(e));
+    yield put(actions.signupFailure(e));
   }
 }
 
@@ -64,6 +64,19 @@ export function* initiateFetchUser() {
   }
 }
 
+export function* initiateUpdateUser(action) {
+  yield put(actions.updateUserPending());
+  try {
+    const response = yield postRequest({
+      url: constants.UPDATE_USER.endpoint,
+      body: action.data,
+    });
+    yield put(actions.updateUserSuccess(response, action.data));
+  } catch (e) {
+    yield put(actions.updateUserFailure(e));
+  }
+}
+
 export const onLogin = takeLatest(actionTypes.LOGIN, initiateLogin);
 
 export const onSignUp = takeLatest(actionTypes.SIGNUP, initiateSignUp);
@@ -75,4 +88,9 @@ export const onFetchUser = takeLatest(
   initiateFetchUser
 );
 
-export default [onLogin, onSignUp, onLogout, onFetchUser];
+export const onUpdateUser = takeLatest(
+  actionTypes.UPDATE_USER,
+  initiateUpdateUser
+);
+
+export default [onLogin, onSignUp, onLogout, onFetchUser, onUpdateUser];

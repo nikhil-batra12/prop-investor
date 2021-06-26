@@ -24,3 +24,30 @@ export function fetchAllPropertiesPending() {
     type: actionTypes.GET_ALL_PROPERTIES_PENDING,
   };
 }
+
+export function registerProperty(data) {
+  return {
+    type: actionTypes.REGISTER_PROPERTY,
+    data,
+  };
+}
+
+export function registerPropertySuccess(response) {
+  return {
+    type: actionTypes.REGISTER_PROPERTY_SUCCESS,
+    response,
+  };
+}
+
+export function registerPropertyFailure(data) {
+  return {
+    type: actionTypes.REGISTER_PROPERTY_FAILURE,
+    data,
+  };
+}
+export function registerPropertyPending() {
+  return {
+    type: actionTypes.REGISTER_PROPERTY_PENDING,
+  };
+}
+

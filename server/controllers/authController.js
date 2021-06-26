@@ -2,6 +2,7 @@ exports.authenticate = authenticate;
 exports.signup = signup;
 exports.getUserDetails = getUserDetails;
 exports.registerUser = registerUser;
+exports.updateUser = updateUser;
 
 function authenticate(req, res) {
   res.send(JSON.stringify(require("../responses/authenticate.json")));
@@ -17,4 +18,8 @@ function getUserDetails(req, res) {
 
 function registerUser(req, res) {
   res.send(JSON.stringify(require("../responses/register-user.json")));
+}
+
+function updateUser(req, res) {
+  res.send(JSON.stringify(require("../responses/update-user.json")));
 }

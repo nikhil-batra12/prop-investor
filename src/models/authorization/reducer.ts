@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import _ from "lodash";
 import * as modelNames from "root/modelNames";
-import * as asyncActions from "utils/ayncActions";
+import * as asyncActions from "utils/asyncActions";
 import * as helpers from "utils/helpers";
 
 export const initialState = {
@@ -9,6 +9,7 @@ export const initialState = {
   signup: { status: asyncActions.NONE },
   logout: { status: asyncActions.NONE },
   fetchUser: { status: asyncActions.NONE },
+  updateUser: { status: asyncActions.NONE },
   userDetails: {},
 };
 
@@ -50,13 +51,22 @@ export const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_USER_PENDING:
       return handleFetchUserPending(state);
 
+    case actionTypes.UPDATE_USER_SUCCESS:
+      return handleUpdateUserSuccess(state, action);
+
+    case actionTypes.UPDATE_USER_FAILURE:
+      return handleUpdateUserFailure(state, action);
+
+    case actionTypes.UPDATE_USER_PENDING:
+      return handleUpdateUserPending(state);
+
     default:
       return state;
   }
 };
 
 function handleLoginSuccess(state, action) {
-  helpers.setToken(action?.response?.user?.token);
+  helpers.setToken(action?.response?.jwt);
   return _.defaults(
     {
       login: { status: asyncActions.SUCCESS },
@@ -166,4 +176,33 @@ function handleFetchUserPending(state) {
   );
 }
 
-export default { [modelNames.AUTORIZATION_MODEL]: reducer };
+
+function handleUpdateUserSuccess(state, action) {
+  return _.defaults(
+    {
+      updateUser: { status: asyncActions.SUCCESS, message: action.response.message },
+      userDetails: action.userDetails
+    },
+    state
+  );
+}
+
+function handleUpdateUserFailure(state, action) {
+  return _.defaults(
+    {
+      updateUser: { status: asyncActions.FAILURE, message: action.response.message },
+    },
+    state
+  );
+}
+
+function handleUpdateUserPending(state) {
+  return _.defaults(
+    {
+      updateUser: { status: asyncActions.PENDING },
+    },
+    state
+  );
+}
+
+export default { [modelNames.AUTHORIZATION_MODEL]: reducer };

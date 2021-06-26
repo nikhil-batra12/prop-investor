@@ -1,0 +1,17 @@
+{
+  "status": 200,
+  "data": [
+    {
+      "propertyId": "Property 1",
+      "propertyName": "Property Name 1",
+      "propertyAddress": "Property Address 1",
+      "amount": "12345"
+    },
+    {
+      "propertyId": "Property 2",
+      "propertyName": "Property Name 2",
+      "propertyAddress": "Property Address 2",
+      "amount": "54321"
+    }
+  ]
+}

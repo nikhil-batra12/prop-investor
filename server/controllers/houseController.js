@@ -5,6 +5,7 @@ exports.getPopularHouses = getPopularHouses;
 exports.getAllProperties = getAllProperties;
 exports.registerProperty = registerProperty;
 exports.fetchPropertyDetails = fetchPropertyDetails;
+exports.fetchMyInvestments = fetchMyInvestments;
 
 function getHouses(req, res) {
   const con = app.con;
@@ -29,4 +30,8 @@ function registerProperty(req, res) {
 
 function fetchPropertyDetails(req, res) {
   res.send(JSON.stringify(require("../responses/property-details.json")));
+}
+
+function fetchMyInvestments(req, res) {
+  res.send(JSON.stringify(require("../responses/my-investments.json")));
 }

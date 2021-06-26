@@ -4,7 +4,7 @@ import * as reducer from "./reducer";
 import * as constants from "./constants";
 
 const getState = (state) =>
-  _.get(state, [modelNames.AUTORIZATION_MODEL], reducer.initialState);
+  _.get(state, [modelNames.AUTHORIZATION_MODEL], reducer.initialState);
 
 export const getLoginStatus = (state) =>
   _.get(getState(state), "login", constants.EMPTY_OBJECT);
@@ -17,3 +17,6 @@ export const getUserDetails = (state) =>
 
 export const getFetchUserStatus = (state) =>
   _.get(getState(state), "fetchUser", constants.EMPTY_OBJECT);
+
+export const getUpdateUserStatus = (state) =>
+  _.get(getState(state), "updateUser", constants.EMPTY_OBJECT);

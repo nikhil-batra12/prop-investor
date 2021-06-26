@@ -3,7 +3,8 @@ import * as constants from "./constants";
 
 const validateEmail = (value) => constants.EMAIL_REGEX.test(value);
 
-const validateRequired = (value) => constants.NON_EMPTY_REGEX.test(value);
+const validateRequired = (value) =>
+  !_.isNil(value) && constants.NON_EMPTY_REGEX.test(value);
 
 const validateAlphabets = (value) => constants.ONLY_ALHABETS.test(value);
 
