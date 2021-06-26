@@ -16,7 +16,7 @@ class PropertyTile extends React.PureComponent<
       <Col key={key} xs={12} md={6} lg={3} className="d-inline-block">
         <Jumbotron className="p-3">
           <h3>{config.name}</h3>
-          <Image src={config.images[0]} fluid className="fixed-height" />
+          <Image src={config?.images?.[0]} fluid className="fixed-height" />
           <p>{config.about}</p>
           <p>
             <Button variant="primary">

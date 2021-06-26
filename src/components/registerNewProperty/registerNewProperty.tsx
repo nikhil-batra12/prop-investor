@@ -5,6 +5,7 @@ import FormFeedback from "components/formGenerator/formFeedback";
 import validation from "utils/formValidity/validation";
 import bsCustomFileInput from "bs-custom-file-input";
 import * as countriesConstant from "utils/constants/countries";
+import * as statesConstant from "utils/constants/states";
 import * as validationConstants from "utils/formValidity/constants";
 
 class RegisterNewPropertyForm extends React.PureComponent<
@@ -119,7 +120,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
           validationConstants.validation.value.rules[0].message,
         ],
       },
-      images: {
+      fileImage: {
         valid: false,
         value: "",
         rules: validationConstants.validation.images.rules,
@@ -166,7 +167,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
   handleChange = (event) => {
     const files = event.target.files[0];
 
-    this.updateForm("images", files);
+    this.updateForm("fileImage", files);
   };
 
   updateForm = (id, value) => {
@@ -262,6 +263,20 @@ class RegisterNewPropertyForm extends React.PureComponent<
                 validationMessages={form["address_2"].validationMessages}
               />
             </Form.Group>
+            <Form.Group controlId="country">
+              <Form.Label>
+                Select County<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                as="select"
+                size="lg"
+                onChange={this.handleCountryChange}
+              >
+                {_.map(countriesConstant.countriesList, (country) => (
+                  <option key={country.code}>{country.name}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
             <Form.Group controlId="city" key="city">
               <Form.Label>
                 Enter City Name<span className="required">*</span>
@@ -280,28 +295,27 @@ class RegisterNewPropertyForm extends React.PureComponent<
                 validationMessages={form["city"].validationMessages}
               />
             </Form.Group>
-            <Form.Row>
-              <Col>
-                <Form.Group controlId="state" key="state">
-                  <Form.Label>
-                    Enter State Name<span className="required">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter State Name"
-                    size="lg"
-                    onChange={this.handleTextBoxChange}
-                    isValid={form["state"].valid}
-                    isInvalid={isFormSubmitted && !form["state"].valid}
-                    value={form["state"].value}
-                  />
-                  <FormFeedback
-                    valid={form["state"].valid}
-                    validationMessages={form["state"].validationMessages}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
+            <Form.Group controlId="state" key="state">
+            <Form.Label>
+              Select State<span className="required">*</span>
+            </Form.Label>
+            <Form.Control
+              as="select"
+              size="lg"
+              onChange={this.handleCountryChange}
+            >
+              {_.map(
+                statesConstant.statesList[form["country"].value],
+                (state) => (
+                  <option key={state.id}>{state.name}</option>
+                )
+              )}
+            </Form.Control>
+            <FormFeedback
+              valid={form["state"].valid}
+              validationMessages={form["state"].validationMessages}
+            />
+          </Form.Group>
                 <Form.Group controlId="zip" key="zip">
                   <Form.Label>
                     Enter Zip Code<span className="required">*</span>
@@ -320,8 +334,6 @@ class RegisterNewPropertyForm extends React.PureComponent<
                     validationMessages={form["zip"].validationMessages}
                   />
                 </Form.Group>
-              </Col>
-            </Form.Row>
             <Form.Group controlId="landmark" key="landmark">
               <Form.Label>
                 Enter Landmark<span className="required">*</span>
@@ -340,20 +352,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
                 validationMessages={form["landmark"].validationMessages}
               />
             </Form.Group>
-            <Form.Group controlId="country">
-              <Form.Label>
-                Select County<span className="required">*</span>
-              </Form.Label>
-              <Form.Control
-                as="select"
-                size="lg"
-                onChange={this.handleCountryChange}
-              >
-                {_.map(countriesConstant.countriesList, (country) => (
-                  <option key={country.code}>{country.name}</option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+            
             <Form.Group controlId="mapLink" key="mapLink">
               <Form.Label>
                 Enter mapLink<span className="required">*</span>
@@ -378,7 +377,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
               </Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter numberOfBathrooms Name"
+                placeholder="Enter Number Of Bathrooms"
                 size="lg"
                 onChange={this.handleTextBoxChange}
                 isValid={form["numberOfBathrooms"].valid}
@@ -398,7 +397,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
               </Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter numberOfBedrooms Name"
+                placeholder="Enter Number Of Bedrooms"
                 size="lg"
                 onChange={this.handleTextBoxChange}
                 isValid={form["numberOfBedrooms"].valid}
@@ -416,7 +415,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
               </Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter squareFeet Name"
+                placeholder="Enter Area in Square Feet"
                 size="lg"
                 onChange={this.handleTextBoxChange}
                 isValid={form["squareFeet"].valid}
@@ -452,9 +451,9 @@ class RegisterNewPropertyForm extends React.PureComponent<
               name="file"
               label={`Property Image`}
               onChange={this.handleChange}
-              isValid={form["images"].valid}
+              isValid={form["fileImage"].valid}
               multiple
-              id="images"
+              id="fileImage"
               feedbackTooltip
             />
           </Modal.Body>

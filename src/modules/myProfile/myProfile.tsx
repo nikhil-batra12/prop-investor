@@ -477,21 +477,19 @@ class MyProfile extends React.PureComponent<
             <h2>KYC Details</h2>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
-                <InputGroup.Text>Kyc Verification</InputGroup.Text>
+                <InputGroup.Text>Kyc Verified</InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
                 type="text"
-                value={userDetails["kycStatus"]}
+                value={userDetails["kycStatus"] === false ? "No" : "Yes"}
                 disabled
                 className={
-                  userDetails["kycStatus"] === "UNVERIFIED"
-                    ? "kyc-fail"
-                    : "kyc-pass"
+                  userDetails["kycStatus"] === false ? "kyc-fail" : "kyc-pass"
                 }
               />
               <InputGroup.Append>
                 <InputGroup.Text>
-                  {userDetails["kycStatus"] === "UNVERIFIED" ? (
+                  {userDetails["kycStatus"] === false ? (
                     <PatchExclamationFill size={25} />
                   ) : (
                     <CheckCircleFill size={25} />
@@ -499,7 +497,7 @@ class MyProfile extends React.PureComponent<
                 </InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
-            {userDetails["kycStatus"] === "UNVERIFIED" ? (
+            {userDetails["kycStatus"] === false ? (
               <Button variant="primary">Verify Now</Button>
             ) : null}
           </Jumbotron>
@@ -507,21 +505,25 @@ class MyProfile extends React.PureComponent<
             <h2>Account Details</h2>
             <InputGroup className="mb-3">
               <InputGroup.Prepend>
-                <InputGroup.Text>Email Verification</InputGroup.Text>
+                <InputGroup.Text>Email Verified</InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
                 type="text"
-                value={userDetails["emailVerificationStatus"]}
+                value={
+                  userDetails["emailVerificationStatus"] === false
+                    ? "No"
+                    : "Yes"
+                }
                 disabled
                 className={
-                  userDetails["emailVerificationStatus"] === "UNVERIFIED"
+                  userDetails["emailVerificationStatus"] === false
                     ? "kyc-fail"
                     : "kyc-pass"
                 }
               />
               <InputGroup.Append>
                 <InputGroup.Text>
-                  {userDetails["emailVerificationStatus"] === "UNVERIFIED" ? (
+                  {userDetails["emailVerificationStatus"] === false ? (
                     <PatchExclamationFill size={25} />
                   ) : (
                     <CheckCircleFill size={25} />
@@ -529,7 +531,7 @@ class MyProfile extends React.PureComponent<
                 </InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
-            {userDetails["emailVerificationStatus"] === "UNVERIFIED" ? (
+            {userDetails["emailVerificationStatus"] === false ? (
               <Button variant="primary">Verify Now</Button>
             ) : null}
           </Jumbotron>

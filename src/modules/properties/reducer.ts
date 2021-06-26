@@ -19,14 +19,14 @@ export const reducer = (state = initialState, action) => {
     case actionTypes.GET_ALL_PROPERTIES_PENDING:
       return handleGetAllPropertiesPending(state);
 
-      case actionTypes.REGISTER_PROPERTY_SUCCESS:
-        return handleRegisterPropertySuccess(state, action);
-  
-      case actionTypes.REGISTER_PROPERTY_FAILURE:
-        return handleRegisterPropertyFailure(state, action);
-  
-      case actionTypes.REGISTER_PROPERTY_PENDING:
-        return handleRegisterPropertyPending(state);
+    case actionTypes.REGISTER_PROPERTY_SUCCESS:
+      return handleRegisterPropertySuccess(state, action);
+
+    case actionTypes.REGISTER_PROPERTY_FAILURE:
+      return handleRegisterPropertyFailure(state, action);
+
+    case actionTypes.REGISTER_PROPERTY_PENDING:
+      return handleRegisterPropertyPending(state);
 
     default:
       return state;
@@ -38,7 +38,7 @@ function handleGetAllPropertiesSuccess(state, action) {
     {
       allProperties: {
         status: asyncActions.SUCCESS,
-        data: action.response.properties,
+        data: action.response,
       },
     },
     state

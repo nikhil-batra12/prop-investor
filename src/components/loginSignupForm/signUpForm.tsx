@@ -139,7 +139,6 @@ class SignUpForm extends React.PureComponent<
 
   handleCountryChange = (event) => {
     const { id, value } = event.target;
-    console.log(id, value);
     this.updateForm(id, value);
   };
 
