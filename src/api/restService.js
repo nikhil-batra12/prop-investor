@@ -17,7 +17,7 @@ const defaultPostConfig = {
 
 const appendToken = (config) =>
   (config.headers = {
-    Authorization: helpers.getToken(),
+    Authorization: "Bearer " + helpers.getToken(),
   });
 
 const interpolateUrl = (url, interpolateParams) => {

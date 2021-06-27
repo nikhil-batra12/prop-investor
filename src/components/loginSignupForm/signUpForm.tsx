@@ -15,11 +15,17 @@ class SignUpForm extends React.PureComponent<
     onSignup: (params) => void;
     signupInfo: any;
   },
-  { isFormSubmitted: boolean; isFormValid: boolean; form: any }
+  {
+    isFormSubmitted: boolean;
+    isFormValid: boolean;
+    form: any;
+    showToast: boolean;
+  }
 > {
   state = {
     isFormSubmitted: false,
     isFormValid: false,
+    showToast: false,
     form: {
       firstName: {
         valid: false,
@@ -62,12 +68,12 @@ class SignUpForm extends React.PureComponent<
         ],
       },
       state: {
-        valid: false,
-        value: "",
-        rules: validationConstants.validation.state.rules,
-        validationMessages: [
-          validationConstants.validation.state.rules[0].message,
-        ],
+        valid: true,
+        value: statesConstant.statesList["Afghanistan"][0].name,
+        // rules: validationConstants.validation.state.rules,
+        // validationMessages: [
+        //   validationConstants.validation.state.rules[0].message,
+        // ],
       },
       country: {
         valid: true,
@@ -82,7 +88,7 @@ class SignUpForm extends React.PureComponent<
         ],
       },
       tokAddress: {
-        valid: false,
+        valid: true,
         value: "",
         // rules: validationConstants.validation.tokAddress.rules,
         // validationMessages: [
@@ -100,6 +106,7 @@ class SignUpForm extends React.PureComponent<
     if (isFormValid) {
       const postObj = this.generateFormPostObj();
       onSignup(postObj);
+      this.setState({ showToast: true });
     }
     this.setState({ isFormSubmitted: true });
   };
@@ -142,9 +149,13 @@ class SignUpForm extends React.PureComponent<
     this.updateForm(id, value);
   };
 
+  handleToastHide = () => {
+    this.setState({ showToast: false });
+  };
+
   render() {
     const { onChangeMode, signupInfo } = this.props;
-    const { isFormSubmitted, form } = this.state;
+    const { isFormSubmitted, form, showToast } = this.state;
     const isPending = helpers.isPending(signupInfo.status);
     const isFailure = helpers.isFailure(signupInfo.status);
     const isSuccess = helpers.isSuccess(signupInfo.status);
@@ -152,8 +163,8 @@ class SignUpForm extends React.PureComponent<
       <Form noValidate onSubmit={this.handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
-          {(isFailure || isSuccess) && (
-            <Toast>
+          {showToast && (isFailure || isSuccess) && (
+            <Toast onClose={this.handleToastHide}>
               <Toast.Header>
                 <img
                   src="holder.js/20x20?text=%20"
@@ -165,7 +176,7 @@ class SignUpForm extends React.PureComponent<
                 )}
                 {isSuccess && (
                   <strong className="mr-auto">
-                    User Successfully registered. Please Login now.
+                    Success. Please Login now.
                   </strong>
                 )}
               </Toast.Header>
@@ -255,6 +266,20 @@ class SignUpForm extends React.PureComponent<
               validationMessages={form["password"].validationMessages}
             />
           </Form.Group>
+          <Form.Group controlId="country">
+            <Form.Label>
+              Select County<span className="required">*</span>
+            </Form.Label>
+            <Form.Control
+              as="select"
+              size="lg"
+              onChange={this.handleCountryChange}
+            >
+              {_.map(countriesConstant.countriesList, (country) => (
+                <option key={country.code}>{country.name}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
           <Form.Group controlId="city" key="city">
             <Form.Label>
               Enter City Name<span className="required">*</span>
@@ -273,20 +298,6 @@ class SignUpForm extends React.PureComponent<
               validationMessages={form["city"].validationMessages}
             />
           </Form.Group>
-          <Form.Group controlId="country">
-            <Form.Label>
-              Select County<span className="required">*</span>
-            </Form.Label>
-            <Form.Control
-              as="select"
-              size="lg"
-              onChange={this.handleCountryChange}
-            >
-              {_.map(countriesConstant.countriesList, (country) => (
-                <option key={country.code}>{country.name}</option>
-              ))}
-            </Form.Control>
-          </Form.Group>
 
           <Form.Group controlId="state" key="state">
             <Form.Label>
@@ -304,10 +315,10 @@ class SignUpForm extends React.PureComponent<
                 )
               )}
             </Form.Control>
-            <FormFeedback
+            {/* <FormFeedback
               valid={form["state"].valid}
               validationMessages={form["state"].validationMessages}
-            />
+            /> */}
           </Form.Group>
 
           <Form.Group controlId="zip" key="zip">

@@ -79,12 +79,12 @@ class MyProfile extends React.PureComponent<
         ],
       },
       state: {
-        valid: false,
-        value: "",
-        rules: validationConstants.validation.state.rules,
-        validationMessages: [
-          validationConstants.validation.state.rules[0].message,
-        ],
+        valid: true,
+        value: statesConstant.statesList["Afghanistan"][0].name,
+        // rules: validationConstants.validation.state.rules,
+        // validationMessages: [
+        //   validationConstants.validation.state.rules[0].message,
+        // ],
       },
       zip: {
         valid: false,
@@ -334,6 +334,21 @@ class MyProfile extends React.PureComponent<
                 validationMessages={form["password"].validationMessages}
               />
             </Form.Group> */}
+                <Form.Group controlId="country">
+                  <Form.Label>
+                    Select County<span className="required">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    as="select"
+                    size="sm"
+                    onChange={this.handleCountryChange}
+                    defaultValue={userDetails["country"]}
+                  >
+                    {_.map(countriesConstant.countriesList, (country) => (
+                      <option key={country.code}>{country.name}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
                 <Form.Group controlId="city" key="city">
                   <Form.Label>
                     Enter City Name<span className="required">*</span>
@@ -352,21 +367,7 @@ class MyProfile extends React.PureComponent<
                     validationMessages={form["city"].validationMessages}
                   />
                 </Form.Group>
-                <Form.Group controlId="country">
-                  <Form.Label>
-                    Select County<span className="required">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    as="select"
-                    size="sm"
-                    onChange={this.handleCountryChange}
-                    defaultValue={userDetails["country"]}
-                  >
-                    {_.map(countriesConstant.countriesList, (country) => (
-                      <option key={country.code}>{country.name}</option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
+
                 <Form.Row>
                   <Col>
                     <Form.Group controlId="state" key="state">
@@ -386,10 +387,10 @@ class MyProfile extends React.PureComponent<
                           )
                         )}
                       </Form.Control>
-                      <FormFeedback
+                      {/* <FormFeedback
                         valid={form["state"].valid}
                         validationMessages={form["state"].validationMessages}
-                      />
+                      /> */}
                     </Form.Group>
                   </Col>
                   <Col>

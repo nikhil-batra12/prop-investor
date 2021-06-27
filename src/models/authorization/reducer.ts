@@ -70,7 +70,7 @@ function handleLoginSuccess(state, action) {
   return _.defaults(
     {
       login: { status: asyncActions.SUCCESS },
-      userDetails: action.response.user,
+      userDetails: action?.response?.user,
     },
     state
   );
@@ -99,7 +99,7 @@ function handleLoginPending(state) {
 function handleSignUpSuccess(state, action) {
   return _.defaults(
     {
-      signup: { status: asyncActions.SUCCESS },
+      signup: { status: asyncActions.SUCCESS, message: action?.data?.message },
       userDetails: {},
     },
     state
@@ -176,12 +176,14 @@ function handleFetchUserPending(state) {
   );
 }
 
-
 function handleUpdateUserSuccess(state, action) {
   return _.defaults(
     {
-      updateUser: { status: asyncActions.SUCCESS, message: action.response.message },
-      userDetails: action.userDetails
+      updateUser: {
+        status: asyncActions.SUCCESS,
+        message: action.response.message,
+      },
+      userDetails: action.userDetails,
     },
     state
   );
@@ -190,7 +192,10 @@ function handleUpdateUserSuccess(state, action) {
 function handleUpdateUserFailure(state, action) {
   return _.defaults(
     {
-      updateUser: { status: asyncActions.FAILURE, message: action.response.message },
+      updateUser: {
+        status: asyncActions.FAILURE,
+        message: action.response.message,
+      },
     },
     state
   );
