@@ -146,11 +146,11 @@ function handleLogoutPending(state) {
 }
 
 function handleFetchUserSuccess(state, action) {
-  helpers.setToken(action?.response?.user?.token);
+  helpers.setToken(action?.response?.token);
   return _.defaults(
     {
       fetchUser: { status: asyncActions.SUCCESS },
-      userDetails: action.response.user,
+      userDetails: action.response,
     },
     state
   );

@@ -5,5 +5,5 @@ export const ALL_PROPERTIES_URL = {
 };
 
 export const REGISTER_PROPERTY_URL = {
-  endpoint: "/testRegisterProperty",
+  endpoint: "/testRegProperty",
 };

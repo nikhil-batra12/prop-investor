@@ -15,10 +15,14 @@ const defaultPostConfig = {
   queryParams: {},
 };
 
-const appendToken = (config) =>
-  (config.headers = {
-    Authorization: "Bearer " + helpers.getToken(),
-  });
+const appendToken = (config) =>{
+  if(helpers.getToken()){
+
+    config.headers = {
+      Authorization: "Bearer " + helpers.getToken(),
+    };
+  }
+}
 
 const interpolateUrl = (url, interpolateParams) => {
   if (_.isEmpty(interpolateParams)) {

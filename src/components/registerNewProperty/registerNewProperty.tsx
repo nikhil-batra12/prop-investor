@@ -55,10 +55,10 @@ class RegisterNewPropertyForm extends React.PureComponent<
       state: {
         valid: false,
         value: "",
-        rules: validationConstants.validation.state.rules,
-        validationMessages: [
-          validationConstants.validation.state.rules[0].message,
-        ],
+        // rules: validationConstants.validation.state.rules,
+        // validationMessages: [
+        //   validationConstants.validation.state.rules[0].message,
+        // ],
       },
       landmark: {
         valid: false,
@@ -140,7 +140,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
     const { onRegisterProperty } = this.props;
     event.preventDefault();
     event.stopPropagation();
-    onRegisterProperty(this.generateFormPostObj());
+    // onRegisterProperty(this.generateFormPostObj());
     if (isFormValid) {
       const postObj = this.generateFormPostObj();
       onRegisterProperty(postObj);
@@ -153,6 +153,8 @@ class RegisterNewPropertyForm extends React.PureComponent<
     _.forOwn(this.state.form, (value, key) =>
       formData.append(key, value.value)
     );
+    formData.append("id", 1321);
+    formData.append("about", "Test prop");
     for (var value of formData.values()) {
       console.log(value);
     }
@@ -194,7 +196,6 @@ class RegisterNewPropertyForm extends React.PureComponent<
 
   handleCountryChange = (event) => {
     const { id, value } = event.target;
-    console.log(id, value);
     this.updateForm(id, value);
   };
 
@@ -311,10 +312,10 @@ class RegisterNewPropertyForm extends React.PureComponent<
                 )
               )}
             </Form.Control>
-            <FormFeedback
+            {/* <FormFeedback
               valid={form["state"].valid}
               validationMessages={form["state"].validationMessages}
-            />
+            /> */}
           </Form.Group>
                 <Form.Group controlId="zip" key="zip">
                   <Form.Label>

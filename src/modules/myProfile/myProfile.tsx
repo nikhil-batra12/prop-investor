@@ -80,7 +80,7 @@ class MyProfile extends React.PureComponent<
       },
       state: {
         valid: true,
-        value: statesConstant.statesList["Afghanistan"][0].name,
+        value: this.props?.userDetails["state"] || statesConstant.statesList["Afghanistan"][0].name,
         // rules: validationConstants.validation.state.rules,
         // validationMessages: [
         //   validationConstants.validation.state.rules[0].message,
@@ -96,7 +96,7 @@ class MyProfile extends React.PureComponent<
       },
       country: {
         valid: true,
-        value: "",
+        value: this.props?.userDetails["country"] || "",
       },
       tokAddress: {
         valid: false,
