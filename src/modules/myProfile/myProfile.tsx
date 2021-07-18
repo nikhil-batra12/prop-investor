@@ -179,8 +179,10 @@ class MyProfile extends React.PureComponent<
   };
 
   generateFormPostObj = () => {
+    const {userDetails} = this.props;
     let postObj = {};
     _.forOwn(this.state.form, (value, key) => (postObj[key] = value.value));
+    postObj = _.assign({}, userDetails, postObj);
     postObj = _.omit(postObj, "password");
     return postObj;
   };
@@ -342,7 +344,7 @@ class MyProfile extends React.PureComponent<
                     as="select"
                     size="sm"
                     onChange={this.handleCountryChange}
-                    defaultValue={userDetails["country"]}
+                    value={userDetails["country"]}
                   >
                     {_.map(countriesConstant.countriesList, (country) => (
                       <option key={country.code}>{country.name}</option>
@@ -378,7 +380,7 @@ class MyProfile extends React.PureComponent<
                         as="select"
                         size="sm"
                         onChange={this.handleCountryChange}
-                        defaultValue={userDetails["state"]}
+                        value={userDetails["state"]}
                       >
                         {_.map(
                           statesConstant.statesList[form["country"].value],

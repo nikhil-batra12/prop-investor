@@ -91,17 +91,13 @@ const NavigationPanel = (props) => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item>
-                  <Link to="/my-profile">
+                <Dropdown.Item as={Link} to="/my-profile">
                     <Tools className="mr-2" />
                     My Profile
-                  </Link>
                 </Dropdown.Item>
-                <Dropdown.Item>
-                  <Link to="/my-investments">
+                <Dropdown.Item as={Link} to="/my-investments">
                     <Wallet className="mr-2" />
                     My Investments
-                  </Link>
                 </Dropdown.Item>
                 <Dropdown.Item onClick={handleLogoutClick}>
                   <Power className="mr-2" />
