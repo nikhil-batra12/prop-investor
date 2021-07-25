@@ -38,7 +38,7 @@ export function* initiateLogout() {
     const response = yield postRequest({
       url: constants.LOGOUT.endpoint,
     });
-    if (response.status === "200") {
+    if (response.status === 200) {
       yield put(actions.logoutSuccess());
     } else {
       yield put(actions.logoutFailure());
@@ -54,7 +54,7 @@ export function* initiateFetchUser() {
     const response = yield getRequest({
       url: constants.FETCH_USER.endpoint,
     });
-    if (response.status === "200") {
+    if (response.status === 200) {
       yield put(actions.fetchUserSuccess(response.data));
     } else {
       yield put(actions.fetchUserFailure(response.data));

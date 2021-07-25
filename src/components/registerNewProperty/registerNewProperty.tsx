@@ -53,8 +53,8 @@ class RegisterNewPropertyForm extends React.PureComponent<
         ],
       },
       state: {
-        valid: false,
-        value: "",
+        valid: true,
+        value: statesConstant.statesList["Afghanistan"][0].name,
         // rules: validationConstants.validation.state.rules,
         // validationMessages: [
         //   validationConstants.validation.state.rules[0].message,
@@ -186,6 +186,10 @@ class RegisterNewPropertyForm extends React.PureComponent<
     updatedFormField.validationMessages =
       validationMessages || updatedFormField?.rules[0]?.message;
     updatedForm[id] = updatedFormField;
+    if(id ==='country'){
+      const state = statesConstant.statesList[value][0].name;
+      updatedForm['state'].value = state;
+    }
     this.setState({ form: updatedForm }, () => this.setFormValidity());
   };
 
@@ -198,6 +202,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
     const { id, value } = event.target;
     this.updateForm(id, value);
   };
+
 
   render() {
     const { isFormSubmitted, form } = this.state;
@@ -303,7 +308,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
             <Form.Control
               as="select"
               size="lg"
-              onChange={this.handleCountryChange}
+              onChange={this.handleTextBoxChange}
             >
               {_.map(
                 statesConstant.statesList[form["country"].value],
