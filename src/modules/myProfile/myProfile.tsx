@@ -206,6 +206,10 @@ class MyProfile extends React.PureComponent<
     updatedFormField.validationMessages =
       validationMessages || updatedFormField?.rules[0]?.message;
     updatedForm[id] = updatedFormField;
+    if(id ==='country'){
+      const state = statesConstant.statesList[value]?.[0]?.name;
+      updatedForm['state'].value = state;
+    }
     this.setState({ form: updatedForm }, () => this.setFormValidity());
   };
 
@@ -343,8 +347,8 @@ class MyProfile extends React.PureComponent<
                   <Form.Control
                     as="select"
                     size="sm"
-                    onChange={this.handleCountryChange}
-                    value={userDetails["country"]}
+                    onChange={this.handleTextBoxChange}
+                    value={form["country"].value}
                   >
                     {_.map(countriesConstant.countriesList, (country) => (
                       <option key={country.code}>{country.name}</option>
@@ -379,7 +383,7 @@ class MyProfile extends React.PureComponent<
                       <Form.Control
                         as="select"
                         size="sm"
-                        onChange={this.handleCountryChange}
+                        onChange={this.handleTextBoxChange}
                         value={userDetails["state"]}
                       >
                         {_.map(
