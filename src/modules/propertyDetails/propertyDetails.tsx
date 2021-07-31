@@ -1,9 +1,18 @@
 import React from "react";
 import _ from "lodash";
 import Image from "react-bootstrap/Image";
-import { Row, Col, Table } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Jumbotron,
+  Accordion,
+  Card,
+  InputGroup,
+  ListGroup,
+} from "react-bootstrap";
 import { withRouter } from "react-router";
-import {imageBasePath} from 'utils/constants/imageConstants';
+import { imageBasePath } from "utils/constants/imageConstants";
+import "./propertyDetails.css";
 
 class PropertyDetails extends React.PureComponent<
   {
@@ -12,11 +21,12 @@ class PropertyDetails extends React.PureComponent<
     onResetPropertyDetails: () => void;
     match: any;
   },
-  { houses: any; activeHouseImg: any }
+  { houses: any; activeHouseImg: any; activeAccordion: any }
 > {
   state = {
     houses: [],
     activeHouseImg: null,
+    activeAccordion: null,
   };
 
   componentDidMount() {
@@ -34,18 +44,159 @@ class PropertyDetails extends React.PureComponent<
     this.setState({ activeHouseImg: src });
   };
 
+  handleAccordionToggle = (event) => {
+    // this.setState({ activeHouseImg: src });
+    console.log(event);
+  };
+
   render() {
     const {
       propertyDetails: { status, data },
     } = this.props;
     const { activeHouseImg } = this.state;
     const imgSrc = data && data.imageFile && data.imageFile[0];
-    const activeSrc = activeHouseImg || `${imageBasePath}/${data?.id}/${imgSrc}`;
+    const activeSrc =
+      activeHouseImg || `${imageBasePath}/${data?.id}/${imgSrc}`;
     const isDataEmpty = _.isEmpty(data);
     return (
       <>
         <h2 className="pb-4">Property Details</h2>
         <Row className="pb-5">
+          <Col xs={12} md={6}>
+            <Jumbotron className="p-1">
+              <div>
+                {!isDataEmpty && (
+                  <>
+                    <h4 className="pt-3">{data.name}</h4>
+                    <div>{data.about}</div>
+
+                    <Accordion defaultActiveKey="0" className="pt-3">
+                      <Card>
+                        <Card.Header className="p-0">
+                          <Accordion.Toggle
+                            as={Card.Header}
+                            eventKey="0"
+                            onClick={() => this.handleAccordionToggle("0")}
+                          >
+                            <h6>Property Investment Details</h6>
+                          </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="0">
+                          <Card.Body>
+                            <Row>
+                              <Col sm={6}>
+                                <InputGroup className="mb-3">
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text
+                                      id="basic-addon1"
+                                      className="fix-width"
+                                    >
+                                      Value (USD)
+                                    </InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <ListGroup>
+                                    <ListGroup.Item className="fix-width">
+                                      {data.value}
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                </InputGroup>
+                              </Col>
+                              <Col sm={6}>
+                                <InputGroup className="mb-3">
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text
+                                      id="basic-addon1"
+                                      className="fix-width"
+                                    >
+                                      Expected Returns (USD)
+                                    </InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <ListGroup>
+                                    <ListGroup.Item className="fix-width">
+                                      {data.returns || "-"}
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                </InputGroup>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Accordion.Collapse>
+                      </Card>
+                      <Card>
+                        <Card.Header className="p-0">
+                          <Accordion.Toggle
+                            as={Card.Header}
+                            eventKey="1"
+                            onClick={() => this.handleAccordionToggle("1")}
+                          >
+                            <h6>Property Details</h6>
+                          </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="1">
+                          <Card.Body>
+                            <Row>
+                              <Col sm={6} className="text-sm-left border-right">
+                                <h6>Complete Address</h6>
+                                <div>{data.address_1}</div>
+                                <div>{data.address_2}</div>
+                                <div>{data.city}</div>
+                                <div>{data.state}</div>
+                                <div>{data.country}</div>
+                                <div>{data.zip}</div>
+                              </Col>
+                              <Col sm={6}>
+                                <InputGroup className="mb-3">
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text
+                                      id="basic-addon1"
+                                      className="fix-width"
+                                    >
+                                      Number of Bathrooms
+                                    </InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <ListGroup>
+                                    <ListGroup.Item className="fix-width-small">
+                                      {data.numOfBathrooms}
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text
+                                      id="basic-addon1"
+                                      className="fix-width"
+                                    >
+                                      Number of Bedrooms
+                                    </InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <ListGroup>
+                                    <ListGroup.Item className="fix-width-small">
+                                      {data.numOfBedrooms}
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                  <InputGroup.Prepend>
+                                    <InputGroup.Text
+                                      id="basic-addon1"
+                                      className="fix-width"
+                                    >
+                                      Area(Square Feet)
+                                    </InputGroup.Text>
+                                  </InputGroup.Prepend>
+                                  <ListGroup>
+                                    <ListGroup.Item className="fix-width-small">
+                                      {data.squareFeet}
+                                    </ListGroup.Item>
+                                  </ListGroup>
+                                </InputGroup>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Accordion.Collapse>
+                      </Card>
+                    </Accordion>
+                  </>
+                )}
+              </div>
+            </Jumbotron>
+          </Col>
           {!isDataEmpty && (
             <Col
               xs={12}
@@ -77,7 +228,11 @@ class PropertyDetails extends React.PureComponent<
                       height="150"
                       className={cNames}
                       key={image}
-                      onClick={() => this.handleActiveImgChange(`${imageBasePath}/${data.id}/${image}`)}
+                      onClick={() =>
+                        this.handleActiveImgChange(
+                          `${imageBasePath}/${data.id}/${image}`
+                        )
+                      }
                     />
                   );
                 }
@@ -90,80 +245,6 @@ class PropertyDetails extends React.PureComponent<
               ></iframe>
             </Col>
           )}
-          <Col xs={12} md={6}>
-            <div>
-              {!isDataEmpty && (
-                <>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th colSpan={2}>Location Highlights</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Name</td>
-                        <td>{data.name}</td>
-                      </tr>
-                      <tr>
-                        <td>About</td>
-                        <td>{data.about}</td>
-                      </tr>
-                      <tr>
-                        <td>Address Line 1</td>
-                        <td>{data.address_1}</td>
-                      </tr>
-                      <tr>
-                        <td>Address Line 2</td>
-                        <td>{data.address_2}</td>
-                      </tr>
-                      <tr>
-                        <td>City</td>
-                        <td>{data.city}</td>
-                      </tr>
-                      <tr>
-                        <td>State</td>
-                        <td>{data.state}</td>
-                      </tr>
-                      <tr>
-                        <td>Country</td>
-                        <td>{data.country}</td>
-                      </tr>
-                      <tr>
-                        <td>Zip</td>
-                        <td>{data.zip}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                  <Table striped bordered hover>
-                    <thead>
-                      <tr>
-                        <th colSpan={2}>Property Insights</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Value(USD)</td>
-                        <td>{data.value}</td>
-                      </tr>
-                      <tr>
-                        <td>Number Of Bathrooms</td>
-                        <td>{data.numOfBathrooms}</td>
-                      </tr>
-                      <tr>
-                        <td>Number Of Bedrooms</td>
-                        <td>{data.numOfBedrooms}</td>
-                      </tr>
-                      <tr>
-                        <td>Area(Square Feet)</td>
-                        <td>{data.squareFeet}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </>
-              )}
-            </div>
-          </Col>
         </Row>
       </>
     );
