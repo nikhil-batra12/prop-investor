@@ -8,6 +8,8 @@ const validateRequired = (value) =>
 
 const validateAlphabets = (value) => constants.ONLY_ALHABETS.test(value);
 
+const validateAlphabetWithSpaces = (value) => constants.ALHABET_WITH_SPACE.test(value);
+
 const validateZipCode = (value) => constants.ZIP_CODE.test(value);
 
 const validateNumbers = (value) => constants.ONLY_NUMBERS.test(value);
@@ -39,6 +41,10 @@ const validateRule = (rule, value, validationMessages) => {
       return result;
     case "NUMBERS":
       result = validateNumbers(value);
+      pushValidationMessage(result, rule.message, validationMessages);
+      return result;
+    case "ALPHABET_WITH_SPACE":
+      result = validateAlphabetWithSpaces(value);
       pushValidationMessage(result, rule.message, validationMessages);
       return result;
   }

@@ -139,6 +139,9 @@ const NavigationPanel = (props) => {
           signupInfo={signupInfo}
         />
       )}
+      <Navbar bg="dark" variant="dark" expand="md" fixed="bottom" >
+      <div className="light-gray-color">&#169; 2021</div>
+      </Navbar>
     </>
   );
 };

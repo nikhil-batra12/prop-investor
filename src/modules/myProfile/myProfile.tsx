@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+import { withRouter } from 'react-router-dom'
 import * as validationConstants from "utils/formValidity/constants";
 import * as countriesConstant from "utils/constants/countries";
 import * as statesConstant from "utils/constants/states";
@@ -23,6 +24,7 @@ class MyProfile extends React.PureComponent<
     userDetails: any;
     updateUserStatus: any;
     onUpdateUser: (data: any) => void;
+    history: any
   },
   {
     isFormSubmitted: boolean;
@@ -125,6 +127,7 @@ class MyProfile extends React.PureComponent<
   //   };
   // }
 
+
   componentDidMount() {
     const { userDetails } = this.props;
     const initialFormState = {};
@@ -145,6 +148,9 @@ class MyProfile extends React.PureComponent<
   }
 
   componentDidUpdate(prevProps) {
+    if(!helpers.getToken()){
+      this.props.history.push("/");
+    }
     if (prevProps.userDetails != this.props.userDetails) {
       const { userDetails } = this.props;
       const initialFormState = {};
@@ -557,4 +563,4 @@ class MyProfile extends React.PureComponent<
   }
 }
 
-export default MyProfile;
+export default withRouter(MyProfile);

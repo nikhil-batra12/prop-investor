@@ -58,3 +58,7 @@
   color: white !important;
   font-weight: bolder !important;
 }
+
+.word-break{
+  word-break: break-all;
+}

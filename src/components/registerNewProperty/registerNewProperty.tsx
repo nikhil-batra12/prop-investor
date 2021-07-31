@@ -23,9 +23,9 @@ class RegisterNewPropertyForm extends React.PureComponent<
       name: {
         valid: false,
         value: "",
-        rules: validationConstants.validation.name.rules,
+        rules: validationConstants.validation.propertyname.rules,
         validationMessages: [
-          validationConstants.validation.name.rules[0].message,
+          validationConstants.validation.propertyname.rules[0].message,
         ],
       },
       address_1: {
@@ -150,9 +150,15 @@ class RegisterNewPropertyForm extends React.PureComponent<
 
   generateFormPostObj = () => {
     const formData: any = new FormData();
-    _.forOwn(this.state.form, (value, key) =>
-      formData.append(key, value.value)
-    );
+    _.forOwn(this.state.form, (obj, key) => {
+      if (key === "fileImage") {
+        _.forEach(obj.value, (image) => {
+          formData.append(key, image);
+        });
+      } else {
+        formData.append(key, obj.value);
+      }
+    });
     formData.append("id", 1321);
     formData.append("about", "Test prop");
     for (var value of formData.values()) {
@@ -167,7 +173,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
   };
 
   handleChange = (event) => {
-    const files = event.target.files[0];
+    const files = event.target.files;
 
     this.updateForm("fileImage", files);
   };
@@ -186,9 +192,9 @@ class RegisterNewPropertyForm extends React.PureComponent<
     updatedFormField.validationMessages =
       validationMessages || updatedFormField?.rules[0]?.message;
     updatedForm[id] = updatedFormField;
-    if(id ==='country'){
+    if (id === "country") {
       const state = statesConstant.statesList[value][0].name;
-      updatedForm['state'].value = state;
+      updatedForm["state"].value = state;
     }
     this.setState({ form: updatedForm }, () => this.setFormValidity());
   };
@@ -202,7 +208,6 @@ class RegisterNewPropertyForm extends React.PureComponent<
     const { id, value } = event.target;
     this.updateForm(id, value);
   };
-
 
   render() {
     const { isFormSubmitted, form } = this.state;
@@ -302,44 +307,44 @@ class RegisterNewPropertyForm extends React.PureComponent<
               />
             </Form.Group>
             <Form.Group controlId="state" key="state">
-            <Form.Label>
-              Select State<span className="required">*</span>
-            </Form.Label>
-            <Form.Control
-              as="select"
-              size="lg"
-              onChange={this.handleTextBoxChange}
-            >
-              {_.map(
-                statesConstant.statesList[form["country"].value],
-                (state) => (
-                  <option key={state.id}>{state.name}</option>
-                )
-              )}
-            </Form.Control>
-            {/* <FormFeedback
+              <Form.Label>
+                Select State<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                as="select"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+              >
+                {_.map(
+                  statesConstant.statesList[form["country"].value],
+                  (state) => (
+                    <option key={state.id}>{state.name}</option>
+                  )
+                )}
+              </Form.Control>
+              {/* <FormFeedback
               valid={form["state"].valid}
               validationMessages={form["state"].validationMessages}
             /> */}
-          </Form.Group>
-                <Form.Group controlId="zip" key="zip">
-                  <Form.Label>
-                    Enter Zip Code<span className="required">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter Zip Code"
-                    size="lg"
-                    onChange={this.handleTextBoxChange}
-                    isValid={form["zip"].valid}
-                    isInvalid={isFormSubmitted && !form["zip"].valid}
-                    value={form["zip"].value}
-                  />
-                  <FormFeedback
-                    valid={form["zip"].valid}
-                    validationMessages={form["zip"].validationMessages}
-                  />
-                </Form.Group>
+            </Form.Group>
+            <Form.Group controlId="zip" key="zip">
+              <Form.Label>
+                Enter Zip Code<span className="required">*</span>
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter Zip Code"
+                size="lg"
+                onChange={this.handleTextBoxChange}
+                isValid={form["zip"].valid}
+                isInvalid={isFormSubmitted && !form["zip"].valid}
+                value={form["zip"].value}
+              />
+              <FormFeedback
+                valid={form["zip"].valid}
+                validationMessages={form["zip"].validationMessages}
+              />
+            </Form.Group>
             <Form.Group controlId="landmark" key="landmark">
               <Form.Label>
                 Enter Landmark<span className="required">*</span>
@@ -358,7 +363,7 @@ class RegisterNewPropertyForm extends React.PureComponent<
                 validationMessages={form["landmark"].validationMessages}
               />
             </Form.Group>
-            
+
             <Form.Group controlId="mapLink" key="mapLink">
               <Form.Label>
                 Enter mapLink<span className="required">*</span>

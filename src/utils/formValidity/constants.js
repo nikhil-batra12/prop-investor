@@ -4,6 +4,8 @@ export const NON_EMPTY_REGEX = /^(?!\s*$).+/;
 
 export const ONLY_ALHABETS = /^[A-Za-z]+$/;
 
+export const ALHABET_WITH_SPACE = /^[A-Za-z ]+$/;
+
 export const ZIP_CODE = /^(\d+-?)+\d+$/;
 
 export const ONLY_NUMBERS = /^[0-9]*$/;
@@ -52,6 +54,12 @@ export const validation = {
     rules: [
       { id: "REQUIRED", message: "Name is Required" },
       { id: "ALPHABETS", message: "Only Alphabets are Allowed" },
+    ],
+  },
+  propertyname: {
+    rules: [
+      { id: "REQUIRED", message: "Name is Required" },
+      { id: "ALPHABET_WITH_SPACE", message: "Only Alphabets and spaces are Allowed" },
     ],
   },
   address: {

@@ -1,6 +1,5 @@
 import React from "react";
 import _ from "lodash";
-import Image from "react-bootstrap/Image";
 import { Row, Col, Table } from "react-bootstrap";
 
 class PropertyDetails extends React.PureComponent<{
@@ -13,7 +12,7 @@ class PropertyDetails extends React.PureComponent<{
 
   render() {
     const {
-      myInvestments: { status, data },
+      myInvestments: { data },
     } = this.props;
     const isDataEmpty = _.isEmpty(data);
     return (
@@ -24,12 +23,13 @@ class PropertyDetails extends React.PureComponent<{
             <div>
               {!isDataEmpty && (
                 <>
-                  <Table striped bordered hover>
+                  <Table striped bordered hover responsive="sm">
                     <thead>
                       <tr>
                         <th>PropertyId</th>
                         <th>Property Name</th>
                         <th>Property Address</th>
+                        <th>User Token Address</th>
                         <th>Amount(USD)</th>
                       </tr>
                     </thead>
@@ -37,10 +37,11 @@ class PropertyDetails extends React.PureComponent<{
                       {_.map(data, (investment) => {
                         return (
                           <tr>
-                            <td>{investment.propertyId}</td>
+                            <td>{investment.propertyID}</td>
                             <td>{investment.propertyName}</td>
-                            <td>{investment.propertyAddress}</td>
-                            <td>{investment.amount}</td>
+                            <td className="word-break">{investment.propertyContractAddress}</td>
+                            <td className="word-break">{investment.tokAddress}</td>
+                            <td>{investment.amountUSDT}</td>
                           </tr>
                         );
                       })}

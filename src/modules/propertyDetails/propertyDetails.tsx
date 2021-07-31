@@ -3,6 +3,7 @@ import _ from "lodash";
 import Image from "react-bootstrap/Image";
 import { Row, Col, Table } from "react-bootstrap";
 import { withRouter } from "react-router";
+import {imageBasePath} from 'utils/constants/imageConstants';
 
 class PropertyDetails extends React.PureComponent<
   {
@@ -38,8 +39,8 @@ class PropertyDetails extends React.PureComponent<
       propertyDetails: { status, data },
     } = this.props;
     const { activeHouseImg } = this.state;
-    const imgSrc = data && data.images && data.images[0];
-    const activeSrc = activeHouseImg || imgSrc;
+    const imgSrc = data && data.imageFile && data.imageFile[0];
+    const activeSrc = activeHouseImg || `${imageBasePath}/${data?.id}/${imgSrc}`;
     const isDataEmpty = _.isEmpty(data);
     return (
       <>
@@ -52,7 +53,7 @@ class PropertyDetails extends React.PureComponent<
               md={6}
               className="text-lg-left text-md-center"
             >
-              {_.map(data.images, (image, index) => {
+              {_.map(data.imageFile, (image, index) => {
                 if (index == "0") {
                   return (
                     <Image
@@ -70,13 +71,13 @@ class PropertyDetails extends React.PureComponent<
                   const cNames = classNames.join(" ");
                   return (
                     <Image
-                      src={image}
+                      src={`${imageBasePath}/${data.id}/${image}`}
                       fluid
                       width="150"
                       height="150"
                       className={cNames}
                       key={image}
-                      onClick={() => this.handleActiveImgChange(image)}
+                      onClick={() => this.handleActiveImgChange(`${imageBasePath}/${data.id}/${image}`)}
                     />
                   );
                 }

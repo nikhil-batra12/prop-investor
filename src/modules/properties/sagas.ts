@@ -1,18 +1,22 @@
 import { takeLatest, put } from "redux-saga/effects";
 import * as actionTypes from "./actionTypes";
 import * as actions from "./actions";
+import * as loaderActions from 'models/loader/actions';
 import { getRequest, postRequest } from "api/restService";
 import * as constants from "./constants";
 
 export function* fetchAllProperties() {
   yield put(actions.fetchAllPropertiesPending());
+  yield put(loaderActions.showLoader());
   try {
     const response = yield getRequest({
       url: constants.ALL_PROPERTIES_URL.endpoint,
     });
     yield put(actions.fetchAllPropertiesSuccess(response.data));
+    yield put(loaderActions.hideLoader());
   } catch (e) {
     yield put(actions.fetchAllPropertiesFailure(e));
+    yield put(loaderActions.hideLoader());
   }
 }
 

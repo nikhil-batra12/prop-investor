@@ -4,6 +4,7 @@ import propertiesReducer from "modules/properties/reducer";
 import propertyDetailsReducer from "modules/propertyDetails/reducer";
 import myInvestmentsReducer from "modules/myInvestments/reducer";
 import authReducer from "models/authorization/reducer";
+import loaderReducer from "models/loader/reducer";
 
 export default combineReducers({
   ...homeReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   ...propertyDetailsReducer,
   ...myInvestmentsReducer,
   ...authReducer,
+  ...loaderReducer
 });

@@ -8,11 +8,12 @@ import MyProfile from "modules/myProfile";
 import MyInvestments from "modules/myInvestments";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Loader from 'models/loader/container';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App pb-3">
         <NavigationPanel />
         <Container fluid>
           <Switch>
@@ -33,6 +34,7 @@ function App() {
             </Route>
           </Switch>
         </Container>
+        <Loader/>
       </div>
     </Router>
   );
