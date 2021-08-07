@@ -9,6 +9,7 @@ import {
   Card,
   InputGroup,
   ListGroup,
+  ProgressBar,
 } from "react-bootstrap";
 import { withRouter } from "react-router";
 import { imageBasePath } from "utils/constants/imageConstants";
@@ -60,8 +61,19 @@ class PropertyDetails extends React.PureComponent<
     const isDataEmpty = _.isEmpty(data);
     return (
       <>
-        <h2 className="pb-4">Property Details</h2>
-        <Row className="pb-5">
+        <h2 className="pb-2">Property Details</h2>
+        <InputGroup className="pb-3 justify-content-center">
+          <InputGroup.Prepend>
+            <InputGroup.Text id="basic-addon1" className="fix-width">
+              Token Address
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <ListGroup>
+            <ListGroup.Item>{data?.smartContractAdd || "-"}</ListGroup.Item>
+          </ListGroup>
+        </InputGroup>
+
+        <Row>
           <Col xs={12} md={6}>
             <Jumbotron className="p-1">
               <div>
@@ -78,18 +90,30 @@ class PropertyDetails extends React.PureComponent<
                             eventKey="0"
                             onClick={() => this.handleAccordionToggle("0")}
                           >
-                            <h6>Property Investment Details</h6>
+                            <h6 className="cursor-pointer">
+                              Property Investment Details
+                            </h6>
                           </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="0">
                           <Card.Body>
                             <Row>
+                              <Col sm={12} className="mb-3">
+                                Funds Generated
+                                <ProgressBar
+                                  striped
+                                  animated
+                                  variant="success"
+                                  now={40}
+                                  label={`$2,500 of $10,000`}
+                                />
+                              </Col>
                               <Col sm={6}>
                                 <InputGroup className="mb-3">
                                   <InputGroup.Prepend>
                                     <InputGroup.Text
                                       id="basic-addon1"
-                                      className="fix-width"
+                                      className="fix-width justify-content-center"
                                     >
                                       Value (USD)
                                     </InputGroup.Text>
@@ -106,7 +130,7 @@ class PropertyDetails extends React.PureComponent<
                                   <InputGroup.Prepend>
                                     <InputGroup.Text
                                       id="basic-addon1"
-                                      className="fix-width"
+                                      className="fix-width justify-content-center"
                                     >
                                       Expected Returns (USD)
                                     </InputGroup.Text>
@@ -129,7 +153,7 @@ class PropertyDetails extends React.PureComponent<
                             eventKey="1"
                             onClick={() => this.handleAccordionToggle("1")}
                           >
-                            <h6>Property Details</h6>
+                            <h6 className="cursor-pointer">Property Details</h6>
                           </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="1">
@@ -237,6 +261,12 @@ class PropertyDetails extends React.PureComponent<
                   );
                 }
               })}
+            </Col>
+          )}
+        </Row>
+        <Row className="pb-5">
+          {!isDataEmpty && (
+            <Col>
               <h4 className="pt-3">Map Location</h4>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1582.8162758923565!2d-121.9485773!3d37.4929966!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fc654f67bbf49%3A0x2d4f6c443c47fb25!2sTesla!5e0!3m2!1sen!2suk!4v1622986935125!5m2!1sen!2suk"

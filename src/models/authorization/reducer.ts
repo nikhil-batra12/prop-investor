@@ -157,6 +157,7 @@ function handleFetchUserSuccess(state, action) {
 }
 
 function handleFetchUserFailure(state, action) {
+  helpers.clearToken();
   return _.defaults(
     {
       fetchUser: { status: asyncActions.FAILURE, message: action.data },

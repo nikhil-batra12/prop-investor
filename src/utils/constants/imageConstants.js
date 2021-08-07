@@ -1,1 +1,1 @@
-export const imageBasePath = "images";
+export const imageBasePath = "../../../images";
