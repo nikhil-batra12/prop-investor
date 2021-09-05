@@ -9,6 +9,7 @@ import MyInvestments from "modules/myInvestments";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Loader from 'models/loader/container';
+import Toaster from 'models/toaster/container';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           </Switch>
         </Container>
         <Loader/>
+        <Toaster/>
       </div>
     </Router>
   );

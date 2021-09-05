@@ -1,0 +1,33 @@
+.toaster-container{
+    position: absolute;
+    top: 65px;
+    z-index: 1021;
+    left: 0;
+    right: 0;
+    color: white;
+}
+
+.toaster-container .toast-header{
+    position: relative;
+}
+
+.toaster-container button{
+    right: 10px;
+    position: absolute;
+}
+
+.toaster-container .toast-body{
+    word-break: break-all;
+}
+
+.toaster-success{
+    background-color: green !important;
+}
+
+.toaster-failed{
+    background-color: red !important;
+}
+
+.toaster-warning{
+    background-color: orange !important;
+}
